@@ -67,7 +67,7 @@ Define the functions $x(\sigma)$, $y(\sigma)$ and the constants $\widehat\lambda
   \end{equation}
   \begin{equation}
     \label{lambda3.1}
-    \widehat\lambda_1=(2\pi)^{\frac{(d-1)(d-2)}{d-1+2\alpha}}\frac{(d-1)}{d-1+2\alpha}\delta^\frac{4\alpha}{d-1+2\alpha},\quad \widehat\lambda_2=(2\pi)^{\frac{(d-1)(d-2)}{d-1+2\alpha}}\frac{2\alpha}{d-1+2\alpha}\delta^\frac{2(1-d)}{d-1+2\alpha}. 
+    \widehat\lambda_1=(2\pi)^{\frac{2\alpha(1-d)}{d-1+2\alpha}}\frac{(d-1)}{d-1+2\alpha}\delta^\frac{4\alpha}{d-1+2\alpha},\quad \widehat\lambda_2=(2\pi)^{\frac{2\alpha(1-d)}{d-1+2\alpha}}\frac{2\alpha}{d-1+2\alpha}\delta^\frac{2(1-d)}{d-1+2\alpha}. 
   \end{equation}
 
 %THEOREM
@@ -203,7 +203,7 @@ $$
 We shall present such $\widehat\lambda_1$,$\widehat\lambda_2$ and $d\mu^*$.
 Consider a function given parametrically by equations \eqref{xy} or explicitly:
  \[
-y(x)=(2\pi)^{\frac{1-d+(d-1)^2}{(d-1+2\alpha)}}x^{\frac{(d-1)}{(d-1+2\alpha)}},\quad x\ge 0.
+y(x)=(2\pi)^{\frac{2\alpha(1-d)}{(d-1+2\alpha)}}x^{\frac{(d-1)}{(d-1+2\alpha)}},\quad x\ge 0.
 \]
 It's concave for $\alpha\geqslant 0$. The equation of the tangent line to $y(x)$ at a point $1/\delta^2$ (a corresponding value of $\sigma$ is $\sigma^*=[(2\pi)^{d-1}\delta^{-2}]^{1/(d-1+2\alpha)}$)
 is $y=\widehat\lambda_1x+\widehat\lambda_2$, where
@@ -290,7 +290,7 @@ Thus, we end with the proof.
 
 \end{proof}
 
-The design of the optimal methods comes from the projection theorem and is to apply the function $a(\sigma)$, which plays the role of a filter, to the Fourier image of the Radon transform. This filter defines a relation between the information and the error of its measurement. When $a(\sigma)$ can be choosen to equal $1$, the corresponding volume of the information doesn't need to be filtered. On the other hand some volume of the information is unnecessary as it may not be used by the optimal method, when $a(\sigma)$ can be equal to $0$.   The following consequence shows that for sufficiently small  $\sigma$ information $\hat g$ doesn't need to be filtered. On the contrary for large  $\sigma$ it has no effect on the error of optimal recovery.
+The design of the optimal methods comes from the projection theorem and is to apply the function $a(\sigma)$, which plays a role of a filter, to the Fourier image of the Radon transform. This filter defines a relation between the information and the error of its measurement. When $a(\sigma)$ can be choosen to equal $1$, the corresponding volume of information doesn't need to be filtered. On the other hand some volume of information is unnecessary as it may not be used by the optimal method, when $a(\sigma)$ can be equal to $0$. The following consequence shows that for sufficiently small  $\sigma$ information $\hat g$ doesn't need to be filtered and, on the contrary, for large  $\sigma$ it has no effect on the error of the optimal recovery.
 
 %CONS1
 \begin{conseq}
@@ -316,7 +316,7 @@ Put $a(\sigma)=1$ to the inequality $A(\sigma)\leqslant 1$, so the solutiuon is 
   \widehat\lambda_1^{-1/{2\alpha}}$.
 \end{proof}
 
- Thus, taking filter $a(\sigma)$ as in consequence \ref{cons3.1} we reconstruct a bandlimited function.
+An obvious observarion here is that taking filter $a(\sigma)$ as in Consequence \ref{cons3.1} gives te result of the optimal recovery as a bandlimited function.
 
 
 %CONS2
@@ -344,10 +344,10 @@ From theorem \ref{theorem3.1} it follows, that \linebreak
 \]
 \end{proof}
 
-GIthub test
+
 
 \section*{References}
 
-\bibliography{document.bib}
+\bibliography{document}
 
 \end{document}

@@ -37,11 +37,11 @@ We consider a problem of the optimal recovery of a function from it's k-plane tr
 In general, a problem of the optimal recovery, studied in papers \cite{MR,MR1,MO}, is to recover a value of a linear operator on a subset (class) in a linear space from a value of another linear operator (called information), measured with an error in a given metric. In most papers (starting from \cite{O} and recent \cite{OS,MO3}) an information is considered to be a linear functional or an operator that maps a function to it's values on a set of points, it's Fourier coefficients, or Fourier transform. In the present paper we consider the Radon transform - an operator, that maps a function on $R^d$ to the set of it's integrals over all hyperplanes. This operator is widely used in the computerized tomography theory, which deals with the numerical reconstruction of functions from their linear integrals. For the particular classes of functions there exist different inversion formulas that allow to produce an exact reconstruction (see \cite{Na}). We consider the case when the Radon transform is measured inaccurately, with a known error $\delta$ in the mean square metric. In the optimal recovery theory the operators of this kind previously appeared in \cite{LS} (example 3.2), where for a function in $R^2$ the information is the Radon transform measured in a finite number of directions, and in papers \cite{D,B} where the radial integration operator is considered on the classes of analytic and harmonic functions. 
 
 Consider $G_{k,d}$ the Grassmanian manifold of (non-oriented) k-dimensional subspaces of $\mathbb R^d$. The measure of the Grassmanian is defined as
-\begin{flalign*}
+\begin{align*}
 $|G_{k,d}|=\frac{|S^{d-1}||S^{d-2}|\dots|S^{d-k}|}{2|S^{k-1}||S^{k-2}\dots|S^1||},\quad k\ge2,\\
 $|G_{1,d}|=|S^{d-1}|/2,\\
 $|G_{0,n}|=1.
-\end{flalign*}
+\end{align*}
 By $\pi^\perp$ denote the $(d-k)$-dimensional orthogonal complement to $\pi\in G_{k,d}$. The integral over $\mathbb R^d$ can be presented as
 \begin{equation}
 \label{integral}

@@ -1,0 +1,325 @@
+\documentclass[12pt]{iopart}
+\bibliographystyle{unsrt} 
+
+\usepackage{amssymb,amsfonts}
+ \expandafter\let\csname equation*\endcsname\relax
+  \expandafter\let\csname endequation*\endcsname\relax
+\usepackage{amsmath}
+%\usepackage{iopams}
+%\usepackage{graphicx,float}
+%\usepackage{setspace}
+%\usepackage{cite}
+%\usepackage{indentfirst}
+\usepackage{color,soul}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{conseq}{Consequence}
+\newenvironment{proof}
+{\par\noindent{\bf Proof}}
+{\hfill$\scriptstyle\blacksquare$}
+
+\begin{document}
+
+\title[The optimal recovery of a function from its inaccurate k-plane transform]{The optimal recovery of a function from an inaccurate information on its k-plane transform}
+\author{Tigran Bagramyan}
+\address{\hl{ %Peoples' Friendship University of Russia, Moscow, Ordzhonikidze 3, 117198
+}}
+\ead{t.bagramyan@me.com}
+\begin{abstract}
+
+We consider a problem of the optimal recovery of the degree of the Laplace operator value on a function from the information on its k-plane transform, measured with an error. Presented are the error of the optimal recovery and the set of optimal methods on classes with the bounded degree of the Laplacian. As a consequence, we give one inequality for the norms of the degree of the Laplacian and the k-plane transform. Particular cases include new inversion methods for the classic Radon and X-ray transforms, measured with an error.
+
+
+
+\end{abstract}
+\ams{44A12, 41A99}
+\submitto{Inverse Problems}
+\maketitle
+
+In general, a problem of the optimal recovery, studied in papers \cite{MR,MR1,MO}, is to recover a value of a linear operator on a subset (class) in a linear space from a value of another linear operator (called information), measured with an error in a given metric. In most papers (starting from \cite{O} and recent \cite{OS,MO3}) an information is considered to be a linear functional or an operator that maps a function to it's values on a set of points, it's Fourier coefficients, or Fourier transform. In the present paper we consider the k-plane transform - an operator, that maps a function on $R^d$ to the set of it's integrals over all k-planes. This operator is widely used in the computerized tomography theory, which deals with the numerical reconstruction of functions from their linear integrals. Special cases are the Radon transform ($k=d-1$) and the X-ray transform ($k=1$). For the particular classes of functions there exist different inversion formulas that allow to produce an exact reconstruction (see \cite{Na}). We consider the case when the k-plane transform is measured inaccurately, with a known error $\delta$ in the mean square metric. In the optimal recovery theory the operators of this kind previously appeared in \cite{LS} (example 3.2), where for a function in $R^2$ the information is the Radon transform measured in a finite number of directions, and in papers \cite{D,B} where the radial integration operator is considered on the classes of analytic and harmonic functions. 
+
+Consider $G_{k,d}$ the Grassmanian manifold of (non-oriented) k-dimensional subspaces of $\mathbb R^d$. The measure of the Grassmanian is defined as
+\begin{eqnarray*}
+|G_{k,d}|=\frac{|S^{d-1}||S^{d-2}|\dots|S^{d-k}|}{2|S^{k-1}||S^{k-2}\dots|S^1||},\quad k\ge2,\\
+|G_{1,d}|=|S^{d-1}|/2,\\
+|G_{0,n}|=1.
+\end{eqnarray*}
+By $\pi^\perp$ denote the $(d-k)$-dimensional orthogonal complement to $\pi\in G_{k,d}$. For the integration over $\mathbb R^d$ the following formula holds
+\begin{equation}
+\label{integral}
+\int_{\mathbb R^d}f(x)dx=\frac{1}{\gamma_{d-k,d}}\int_{G_{k,d}}\int_{\pi^\perp}|x''|^kf(x'')dx''d\pi,
+\end{equation}
+where
+$$
+\gamma_{k,d}=|G_{k-1,d-1}|.
+$$
+A point $x\in\mathbb R^d$ can be presented as $x=x'+x''$, $x'\in\pi$, $x''\in\pi^\perp$. The k-plane transform is given by the formula
+	$$Pf(\pi,x'')=P_\pi f(x'')=\int_{\pi}f(x'+x'')dx',\quad x''\in\pi^\perp.$$
+Its domain is the manifold of all $k$-planes in $\mathbb R^d$ 
+$$TG_{k,d}=\{(\pi,x''):\pi\in G_{k,d}, x''\in\pi^\perp\}.$$
+One important relation between the k-plane transform and the Fourier transform of a function
+$$\quad \widehat f(\xi)=(2\pi)^{-d/2}\int_{\mathbb R^d}e^{-ix\xi}f(x)dx.$$
+is  known as the projection-slice theorem. 
+
+\begin{theorem}
+\label{projection}
+If $f\in L_1(\mathbb R^d)$, then
+$$\widehat{(P_\pi f)}(\xi'')=(2\pi)^{k/2}\widehat f(\xi''),\quad \xi''\in\pi^\perp.$$
+\end{theorem}
+It plays an important role in the proof of the main result. A short introduction to this and related formulas can be found in \cite{K}, for more details see \cite{H}.
+%Hilbert space $L_2(Z)$ is produced by a scalar product	
+%	$(g,h)_{L_2(Z)}=\int_{\mathbb S^{d-1}}\int_{\mathbb R}g(\theta,s)\overline h(\theta,s)dsd\theta.$
+
+We will work with the class of functions which is constructed by the degree of the Laplace operator, defined for $\alpha\ge 0$ by the formula 
+$$\widehat{(-\Delta)^{\alpha/2}f}(\xi)=|\xi|^\alpha \widehat f(\xi)$$ on the set of functions $f\in L_2(\mathbb R^d)$ that satisfy the condition $|\xi|^\alpha\widehat f(\xi)\in L_2(\mathbb R^d)$.
+We denote the class 
+$$ W=\{f\in L_2(\mathbb R^d) :
+\|(-\Delta)^{\alpha/2}f\|_{L_2(\mathbb R^d)}\leqslant  1;\quad Pf\in L_2(TG_{k,d}) \}.  $$
+Suppose that for a function $Pf$ we know an approximation $g\in L_2(TG_{k,d})$ such that
+	$$\|Pf-g\|_{L_2(TG_{k,d})}\le\delta, \quad\delta>0.$$
+On this information we want to recover the function $(-\Delta)^{\beta/2}f$ as an element of $ L_2(\mathbb R^d)$, where $0\le\beta\le\alpha$. An arbitrary map $m:L_2(TG_{k,d})\rightarrow L_2(\mathbb R^d)$ is called a method $m$ of recovery of $f$. Define the error $e(\delta,m)$ of the method by
+\[
+  e(\delta,m)=\sup_{
+  \begin{smallmatrix}
+f\in W, g\in L_2(TG_{k,d})\\ 
+\|Pf-g\|_{L_2(TG_{k,d})}\leqslant \delta
+\end{smallmatrix}} ||(-\Delta)^{\beta/2}f-m(g)||_{L_2(\mathbb R^d)}.
+\] 
+Next, define the error of the optimal recovery by
+\begin{equation}
+\label{opter}
+E(\delta)=\inf_{m:L_2(TG_{k,d})\rightarrow L_2(\mathbb R^d)}e(\delta,m).
+\end{equation}
+The method of recovery $m$ is optimal if the error of the optimal recovery $E(\delta)$ is achieved by the error $e(\delta,m)$ of $m$, i.e. $e(\delta,m)=E(\delta)$. Our goal is to present the explicit construction for the optimal methods and the error of the optimal recovery.
+
+Define the functions $t(\sigma)$, $y(\sigma)$ and the constants $\widehat\lambda_1$, $\widehat\lambda_2$ by the formulas
+  \begin{equation}
+  \label{xy}
+  t(\sigma)=\frac{\sigma^{2\alpha+k}}{(2\pi)^{k}\gamma_{d-k,d}},\quad
+  y(\sigma)=\frac{\sigma^{2\beta+k}}{(2\pi)^{k}\gamma_{d-k,d}},\quad \sigma\in\mathbb R;
+  \end{equation}
+  \begin{equation}
+    \label{lambda}
+    \widehat\lambda_1=((2\pi)^k\gamma_{d-k,d})^{\frac{2(\beta-\alpha)}{2\alpha+k}}\frac{2\beta+k}{2\alpha+k}\delta^\frac{4(\alpha-\beta)}{2\alpha+k},\quad \widehat\lambda_2=((2\pi)^k\gamma_{d-k,d})^{\frac{2(\beta-\alpha)}{2\alpha+k}}\frac{2(\alpha-\beta)}{2\alpha+k}\delta^\frac{-4\beta-2k}{2\alpha+k}. 
+  \end{equation}
+
+%THEOREM
+\begin{theorem}
+\label{theorem}
+The error of the optimal recovery is given by
+  \[
+E(\delta)=\sqrt{\widehat\lambda_1+\widehat\lambda_2\delta^2}=((2\pi)^k\gamma_{d-k,d})^{\frac{\beta-\alpha}{2\alpha+k}}\delta^{\frac{2(\alpha-\beta)}{2\alpha+k}}.
+\]
+and the following methods are optimal
+ \begin{equation}
+\label{method}
+  \widehat{m_a(g)}(\xi'')=(2\pi)^{-k/2}a(\xi'')\widehat{g_\pi }(\xi''),\quad \xi''\in\pi^\perp,
+\end{equation}
+  \begin{equation}
+  \label{a}
+  a(\xi'')=\frac{\widehat\lambda_2}{\widehat\lambda_1t(|\xi''|)+\widehat\lambda_2}+\varepsilon(\xi'')\frac{|\xi''|^\alpha\sqrt{\widehat\lambda_1\widehat\lambda_2}}{\widehat\lambda_1t(|\xi''|)+\widehat\lambda_2}\sqrt{t(|\xi''|)\widehat\lambda_1+\widehat\lambda_2-y(|\xi''|)},
+  \end{equation}
+  $\varepsilon$ is an arbitrary function satisfying $\|\varepsilon\|_{L_\infty(\mathbb R^d)}\le 1$.
+\end{theorem}
+
+\begin{proof}
+Consider the extremal problem
+\[
+  \|(-\Delta)^{\beta/2}f\|^2_{L_2(\mathbb R^d)}\to\sup,\quad \|
+  (-\Delta)^{\alpha/2}f\|^2_{L_2(\mathbb R^d)}\leqslant  1,\quad
+  \|Pf\|^2_{L_2(TG_{k,d})}\leqslant  \delta^2,
+\] which is called the dual problem to \eqref{opter}.
+Its solution gives the lower bound for $E(\delta)$. Indeed, for an arbitrary method $m$:
+\begin{multline*}
+e(\delta,m)= \sup_{
+\begin{smallmatrix}
+f\in W, g\in L_2(TG_{k,d})\\ 
+\|Pf-g\|_{L_2(TG_{k,d})}\leqslant \delta
+\end{smallmatrix}}
+\|(-\Delta)^{\beta/2}f-m(g)\|_{L_2(\mathbb{R}^d)}\geqslant\\
+\geqslant\sup_{
+\begin{smallmatrix}
+f\in W\\ 
+\|Pf\|_{L_2(TG_{k,d})}\leqslant \delta
+\end{smallmatrix}}
+\|(-\Delta)^{\beta/2}f-m(0)\|_{L_2(\mathbb{R}^d)}\geqslant \\
+\geqslant \sup_{
+\begin{smallmatrix}
+f\in W\\ 
+\|Pf\|_{L_2(TG_{k,d})}\leqslant \delta
+\end{smallmatrix}}
+\frac{\|(-\Delta)^{\beta/2}f-m(0)\|_{L_2(\mathbb{R}^d)}+\|-(-\Delta)^{\beta/2}f-m(0)\|_{L_2(\mathbb{R}^d)}}{2}\geqslant \\
+\geqslant\sup_{
+\begin{smallmatrix}
+f\in W\\ 
+\|Pf\|_{L_2(TG_{k,d})}\leqslant \delta
+\end{smallmatrix}}
+\|(-\Delta)^{\beta/2}f\|_{L_2(\mathbb{R}^d)}.
+\end{multline*}
+The inequalities are true due to the central symmetry of the set $W$. Hence
+$$E(\delta)\ge\sup_{
+\begin{smallmatrix}
+f\in W\\ 
+\|Pf\|_{L_2(TG_{k,d})}\leqslant \delta
+\end{smallmatrix}}
+\|(-\Delta)^{\beta/2}f\|_{L_2(\mathbb{R}^d)}.$$
+
+We use theorem \ref{projection} and relation \eqref{integral} to transform the functional and the constraints in the dual problem as follows: 
+\[
+  \|(-\Delta)^{\beta/2}f\|^2_{L_2(\mathbb R^d)}=\|\widehat{(-\Delta)^{\beta/2}f}\|^2_{L_2(\mathbb R^d)}=\int_{\mathbb R^d}|\xi|^{2\beta}|\widehat{f}(\xi )|^2d\xi;
+\]
+\[ \| (-\Delta)^{\alpha/2}f\|^2_{L_2(\mathbb R^d)}=\|\widehat{(-\Delta)^{\alpha/2}f}\|^2_{L_2(\mathbb R^d)}=\int_{\mathbb R^d}|\xi|^{2\alpha} |\widehat{f}(\xi)|^2d\xi;
+\]
+\begin{multline*}
+  \|Pf\|^2_{L_2(TG_{k,d})}=\int_{\mathbb G_{k,d}}\int_{\pi^\perp}|Pf(\pi,x'')|^2  dx''d\pi =
+  \int_{\mathbb G_{k,d}}\int_{\pi^\perp}|\widehat{(Pf_\pi)}(\eta)|^2  d\eta d\pi = \\
+  =(2\pi)^{k}\int_{\mathbb G_{k,d}}\int_{\pi^\perp}|\widehat
+  f(\eta )|^2d\eta d\pi =
+  (2\pi)^{k}\gamma_{d-k,d}\int_{\mathbb R^d}\frac{1}{|\xi|^k}|\widehat f(\xi )|^2d\xi.
+\end{multline*}
+If we denote $|\widehat f(\xi)|^2 d\xi =d\mu(\xi)$ the dual problem can be presented as
+  \begin{equation}
+  \label{mes}
+  \int_{\mathbb R^d}|\xi|^{2\beta}d\mu\to \sup,\quad
+  \int_{\mathbb R^d}|\xi|^{2\alpha}d\mu\leqslant  1,\quad\int_{\mathbb R^d}\frac{(2\pi)^{k}\gamma_{d-k,d}}{|\xi|^k}d\mu\leqslant \delta^2.
+  \end{equation}
+Now we consider \eqref{mes} to be a new extremal problem, where $d\mu(\xi)$ is an arbitrary measure. Obviously its solution ins't less than the solution of the original dual problem. To solve the dual problem we will present the solution of \eqref{mes} and the sequence of admissible functions, that bring the same value in the dual problem.
+Consider the Lagrange function of \eqref{mes}:
+ \begin{multline*}
+L(d\mu ,\lambda_1,\lambda_2)=-\lambda_1-\lambda_2\delta^2+\\
+  +(2\pi)^{k}\gamma_{d-k,d}\int_{\mathbb R^d}\frac{1}{|\xi|^k}\Bigl(\lambda_1\frac{|\xi|^{2\alpha+k}}{(2\pi)^{k}\gamma_{d-k,d}}+\lambda_2-\frac{|\xi|^{2\beta+k}}{(2\pi)^{k}\gamma_{d-k,d}}\Bigr)d\mu
+\end{multline*}
+or using notations \eqref{xy},
+ $$
+L(d\mu ,\lambda_1,\lambda_2)=-\lambda_1-\lambda_2\delta^2+(2\pi)^{k}\gamma_{d-k,d}\int_{\mathbb R^d}\frac{1}{|\xi|^k}\Bigl(\lambda_1t(|\xi|)+\lambda_2-y(|\xi|)\Bigr)d\mu.
+$$
+If there exist the Lagrange multipliers $\widehat\lambda_1$,$\widehat\lambda_2\ge 0$ and a measure $d\mu^*$, admissible in \eqref{mes}, that minimizes the Lagrange function
+	$$\min_{
+\begin{smallmatrix}
+d\mu\ge 0
+\end{smallmatrix}} L(d\mu,\widehat{\lambda}_1,\widehat{\lambda}_2)=L(d\mu^*,\widehat{\lambda}_1,\widehat{\lambda}_2)$$ and satisfies
+$$
+\widehat\lambda_1\left(\int_{\mathbb R^d}|\xi|^{2\alpha}d\mu^*-1\right)+\widehat\lambda_2\left((2\pi)^{k}\gamma_{d-k,d}\int_{\mathbb
+    R^d}\frac{d\mu}{|\xi|^k}^*-\delta^2 \right)=0
+$$
+ (complementary slackness condition), then $d\mu^*$ brings maximum to \eqref{mes}. 
+
+We shall present such $\widehat\lambda_1$,$\widehat\lambda_2$ and $d\mu^*$.
+Consider a function given parametrically by equations \eqref{xy} or explicitly
+ \[
+y(t)=((2\pi)^k\gamma_{d-k,d})^{\frac{2\beta-2\alpha}{2\alpha+k}}t^{\frac{2\beta+k}{2\alpha+k}},\quad t\ge 0.
+\]
+It's concave for $0\le\beta\le\alpha$. The equation of the tangent line to $y(t)$ at a point $1/\delta^2$ (the corresponding value of $\sigma$ is $\sigma^*=[(2\pi)^k\gamma_{d-k,d}\delta^{-2}]^{1/(2\alpha+k)}$)
+is $u=\widehat\lambda_1t+\widehat\lambda_2$, where
+$\widehat\lambda_1$, $\widehat\lambda_2$ defined in
+\eqref{lambda}. Thus, we have
+$\widehat\lambda_1t(\sigma)+\widehat\lambda_2-y(\sigma)\geqslant 0$ and
+$L(d\mu,\widehat\lambda_1,\widehat\lambda_2)\geqslant
+-\widehat\lambda_1-\widehat\lambda_2\delta^2.$
+Consider a measure supported on the sphere $|\xi|=\sigma^* $ (i.e. the surface $\delta$-function) 
+  $$
+  d\mu^*=\frac{(\sigma^*)^{-d+1-2\alpha}}{|\mathbb S^{d-1}|}\delta_{|\xi|=\sigma^*}.
+$$ 
+It's admissible in \eqref{mes}, satisfies the complementary slackness condition and minimizes the Lagrange function, as $L(d\mu^*,\widehat\lambda_1,\widehat\lambda_2)=-\widehat\lambda_1-\widehat\lambda_2\delta^2$. Thus, it brings the extremum in problem \eqref{mes}, which solution is equal to $\widehat\lambda_1+\widehat\lambda_2\delta^2$.
+
+By a standard approximation of the $\delta$-function it's easy to show that the solution of the dual problem is the same as in \eqref{mes}. Thereby we obtain a lower bound for the error of the optimal recovery $E(\delta)\ge\sqrt{\widehat\lambda_1+\widehat\lambda_2\delta^2}$.
+%METHOD
+
+Now we show, that the error of the methods \eqref{method} is equal to the achieved estimate.
+We have
+\begin{multline*}
+  \|f-m_a(g)\|^2_{L_2(\mathbb R^d)}=\|\widehat f-\widehat{m_a(g)}\|^2_{L_2(\mathbb R^d)}=\\
+  =\int_{G_{k,d}}\int_{\pi^\perp}\frac{|\xi''|^k}{\gamma_{d-k,d}}\left|\widehat f(\xi'')-(2\pi)^{-k/2}a(\xi'')\widehat{g_\pi}(\xi'')\right|^2d\xi'' d\pi =\\
+  =\int_{G_{k,d}}\int_{\pi^\perp}\frac{|\xi''|^k}{\gamma_{d-k,d}}\left|a(\xi'')(2\pi)^{-k/2}\left(\widehat{g_\pi }(\xi'')-(2\pi)^{k/2}\widehat 
+      f(\xi'' )\right)+\widehat
+    f(\xi'')\left(a(\xi'')-1\right)\right|^2d\xi'' d\pi .
+\end{multline*}
+Transform this expression using the Cauchy-Schwarz inequality $|qz|\leqslant |z||q|$ applied to vectors
+\[
+z=\left((2\pi)^{-k/2}\frac{a(\xi'')}{\sqrt{\widehat\lambda_2}},\frac{\sqrt{\gamma_{d-k,d}}}{|\xi''|^{\frac{k+2\alpha}{2}}}\frac{(a(\xi'')-1)}{\sqrt{\widehat\lambda_1}}\right),
+\]
+\[
+q=\left(\left(\widehat{g_\pi }(\xi'')-(2\pi)^{k/2}\widehat
+    f(\xi'' )\right)\sqrt{\widehat\lambda_2},\frac{|\xi''|^{\frac{k+2\alpha}{2}}}{\sqrt{\gamma_{d-k,d}}}\sqrt{\widehat\lambda_1}\widehat
+  f(\xi'' )\right).
+\]
+We obtain
+\begin{multline*}  
+  \|f-m_a(g)\|^2_{L_2(\mathbb R^d)}\leqslant  \\
+  \leqslant \int_{G_{k,d}}\int_{\pi^\perp}
+  A(\xi'')\left(\frac{|\xi''|^{k+2\alpha}}{\gamma_{d-k,d}}\widehat\lambda_1|\widehat
+    f(\xi'')|^2+\left|\widehat{g_\pi
+      }(\xi'')-(2\pi)^{k/2}\widehat f(\xi''
+      )\right|^2\widehat\lambda_2\right)d\xi'' d\pi ,
+\end{multline*}
+where
+  \[
+  A(\xi'')=\frac{|\xi''|^k}{\gamma_{d-k,d}}\left((2\pi)^{-k}\frac{a^2(\xi'')}{\widehat\lambda_2}+\frac{\gamma_{d-k,d}}{|\xi''|^{k+2\alpha}}\frac{(a(\xi'')-1)^2}{\widehat\lambda_1}\right).
+  \]
+  The condition \eqref{a} is equivalent to $A(\xi'')\leqslant 1$, which leads to $ \|f-m_a(g)\|^2_{L_2(\mathbb R^d)}\leqslant
+  \widehat\lambda_1+\widehat\lambda_2\delta^2.$
+Thus, we end with the proof.
+
+\end{proof}
+
+The design of the optimal methods actually adds a filter $a(\xi'')$ to the projection theorem and instead of the $k$-plane transform we deal with its Fourier image. This filter defines the amount of information we use for the optimal recovery. When $a(\xi'')$ can be chosen to equal $1$, the corresponding volume of the information doesn't need to be filtered. On the other hand some information is unnecessary as it may not be used by the optimal method, when $a(\xi'')$ can be equal to $0$. The following consequence shows that for sufficiently small  $|\xi''|$ information $\hat g_\pi(\xi'')$ doesn't need to be filtered and, on the contrary, for large  $|\xi''|$ the information is useless, as it  has no effect on the error of the optimal recovery.
+
+%CONS1
+\begin{conseq}
+\label{cons}
+In the conditions of the Theorem \ref{theorem} the following methods are optimal $$
+\widehat{m_a(g)}(\xi'')=(2\pi)^{-k/2}a(\xi'')\widehat{g_\pi }(\xi''),\quad \xi''\in\pi^\perp,$$ where
+  \[
+a(\xi'')=
+  \begin{cases}
+    1& ,|\xi''|\le 2\pi(\widehat\lambda_2\gamma_{d-k,d})^\frac{1}{k},\\
+    \frac{\widehat\lambda_2}{\widehat\lambda_1t(|\xi''|)+\widehat\lambda_2}+\varepsilon(\xi'')\frac{|\xi''|^\alpha\sqrt{\widehat\lambda_1\widehat\lambda_2}}{\widehat\lambda_1t(|\xi''|)+\widehat\lambda_2}\sqrt{t(|\xi''|)\widehat\lambda_1+\widehat\lambda_2-y(|\xi''|)}& ,2\pi(\widehat\lambda_2\gamma_{d-k,d})^\frac{1}{k} \le|\xi''|\le \widehat\lambda_1^{\frac{-1}{2\alpha}},\\
+    0 &,|\xi''|\ge\widehat\lambda_1^{\frac{-1}{2\alpha}}.
+  \end{cases}
+\]
+$\varepsilon$ is an arbitrary function satisfying $\|\varepsilon\|_{L_\infty(\mathbb R^d)}\le 1$.
+\end{conseq}
+
+\begin{proof}
+As we've seen in the proof of the Theorem \ref{theorem} the condition on $a(\xi'')$ for the method $m_a(g)$ to be optimal is $A(\xi'')\leqslant 1$. Put $a(\xi'')=1$ to this inequality and solve it for $\xi''$ to obtain $|\xi''|\le 2\pi(\widehat\lambda_2\gamma_{d-k,d})^\frac{1}{k}$. By the analogue put $a(\xi'')=0$,
+  then $A(\xi'')\leqslant 1$ is true when $|\xi''|\geqslant
+  \widehat\lambda_1^{-1/{2\alpha}}$.
+\end{proof}
+
+An obvious observarion here is that the methods from the Consequence \ref{cons} give the result of the optimal recovery as a bandlimited function. Another application of the Theorem \ref{theorem} is a new inequality for the norm of a function and the norms of the k-plane transform and the degree of the Laplace operator.
+
+
+%CONS2
+\begin{conseq}
+\label{cons2}
+The following exact inequality takes place for a function $f\in L_2(\mathbb R^d)$, $|\xi|^\alpha\widehat f(\xi)\in L_2(\mathbb R^d)$, $Pf\in L_2(TG_{k,d})$:
+\[
+\|f\|_{L_2(\mathbb R^d)}\leqslant
+((2\pi)^k\gamma_{d-k,d})^{\frac{-\alpha}{2\alpha+k}}\|Pf\|_{L_2(TG_{k,d})}^{\frac{2\alpha}{2\alpha+k}}\|(-\Delta)^{\alpha/2}f\|_{L_2(\mathbb
+  R^d)}^\frac{k}{2\alpha+k},\quad\alpha\ge0.
+\]
+\end{conseq}
+
+\begin{proof}
+From the solution of the dual problem in Theorem \ref{theorem} it follows, that \linebreak
+ $\|u\|_{L_2(\mathbb R^d)}\leqslant E(\delta)=
+  ((2\pi)^k\gamma_{d-k,d})^{\frac{-\alpha}{2\alpha+k}}\delta^{\frac{2\alpha}{2\alpha+k}}$, 
+  when the following constraints are satisfied: $\|Pu\|_{L_2(TG_{k,d})}=\delta$ and
+  $\|(-\Delta)^{\alpha/2}u\|_{L_2(\mathbb R^d)}=1$. So the expression can be presented as \linebreak
+$\|u\|_{L_2(\mathbb R^d)}\leqslant
+  ((2\pi)^k\gamma_{d-k,d})^{\frac{-\alpha}{2\alpha+k}}\|Pu\|_{L_2(TG_{k,d})}^{\frac{2\alpha}{2\alpha+k}}$.
+ Now we put
+ $u(x)=\frac{f(x)}{\|(-\Delta)^{\alpha/2}f\|_{L_2(\mathbb R^d)}}$, $f\ne 0$ to obtain
+\[
+\|f\|_{L_2(\mathbb R^d)}\leqslant
+((2\pi)^k\gamma_{d-k,d})^{\frac{-\alpha}{2\alpha+k}}\|Pf\|_{L_2(TG_{k,d})}^{\frac{2\alpha}{2\alpha+k}}\|(-\Delta)^{\alpha/2}f\|_{L_2(\mathbb
+  R^d)}^\frac{k}{2\alpha+k}.
+\]
+\end{proof}
+
+\section*{References}
+
+\bibliography{document}
+
+\end{document}

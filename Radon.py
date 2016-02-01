@@ -171,7 +171,7 @@ reconstructionT = iradonT(sinogram, theta=theta, filter = 'tigran',circle = True
 
 error = reconstruction - image
 print('Natural reconstruction error: %.3g' % np.sqrt(np.mean(error**2)))
-error = reconstructionT - image
+errorT = reconstructionT - image
 print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(error**2)))
 
 imkwargs = dict(vmin=-0.2, vmax=0.2)
@@ -182,4 +182,13 @@ ax1.set_title("Natural filter" )
 ax1.imshow(reconstruction, cmap=plt.cm.Greys_r)
 ax2.set_title("Optimal filter")
 ax2.imshow(reconstructionT, cmap=plt.cm.Greys_r)
+plt.show()
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4.5),
+                               sharex=True, sharey=True,
+                               subplot_kw={'adjustable': 'box-forced'})
+ax1.set_title("Error of Natural filter")
+ax1.imshow(error, cmap=plt.cm.Greys_r)
+ax2.set_title("Error of Optimal filter")
+ax2.imshow(errorT, cmap=plt.cm.Greys_r)
 plt.show()

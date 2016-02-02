@@ -163,16 +163,25 @@ theta = np.linspace(0., 180., max(image.shape), endpoint=False)
 sinogram = radon(image, theta=theta, circle=True)
 
 #add noise
-#sinogram = sinogram + 10*randn(400,400)
+x=np.arange(-2*np.pi,2*np.pi,4*np.pi/400)
+y=np.arange(-2*np.pi,2*np.pi,4*np.pi/400)
+xx, yy = np.meshgrid(x, y, indexing='ij')
+
+r = np.sqrt(xx**2 + yy**2)
+phi = np.arccos(x/r)
+
+z1 = np.sin(2*(r-np.pi)) / (r-np.pi)
+z2 = z1 * (1 + 0.5*np.cos(4*phi))
+sinogram = sinogram + 5*randn(400,400) #np.multiply(sinogram,1+0.2*z1)
 
 #reconstruct
-reconstruction = iradonT(sinogram, theta=theta, filter = 'shepp-logan', circle = True)
+reconstruction = iradonT(sinogram, theta=theta, filter = 'ramp', circle = True)
 reconstructionT = iradonT(sinogram, theta=theta, filter = 'tigran',circle = True)
 
 error = reconstruction - image
 print('Natural reconstruction error: %.3g' % np.sqrt(np.mean(error**2)))
 errorT = reconstructionT - image
-print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(error**2)))
+print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(errorT**2)))
 
 imkwargs = dict(vmin=-0.2, vmax=0.2)
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4.5),
@@ -185,8 +194,8 @@ ax2.imshow(reconstructionT, cmap=plt.cm.Greys_r)
 plt.show()
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4.5),
-                               sharex=True, sharey=True,
-                               subplot_kw={'adjustable': 'box-forced'})
+                              sharex=True, sharey=True,
+                             subplot_kw={'adjustable': 'box-forced'})
 ax1.set_title("Error of Natural filter")
 ax1.imshow(error, cmap=plt.cm.Greys_r)
 ax2.set_title("Error of Optimal filter")

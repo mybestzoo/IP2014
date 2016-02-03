@@ -159,7 +159,7 @@ def iradonT(radon_image, theta=None, output_size=None,
 
 
 #MAIN PROGRAM 
-delta = 0.1
+delta = 10
 t = 0.025
 x = np.arange(-2.0, 2.0, t)
 y = np.arange(-2.0, 2.0, t)
@@ -171,10 +171,10 @@ image = Z#10.0 * (Z2 - Z1)
 image[X**2+Y**2 > 4] = 0
 
 #plot image
-fig = plt.figure()
-fig.suptitle("Original image")
-plt.contourf(X,Y,image)
-plt.show()  
+#fig = plt.figure()
+#fig.suptitle("Original image")
+#plt.contourf(X,Y,image)
+#plt.show()  
 
 #make sinogram
 theta = np.linspace(0., 180., max(image.shape), endpoint=False)
@@ -219,16 +219,10 @@ print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(errorT**2)))
 #ax2.contourf(X,Y,errorT)
 #plt.show()
 
-#plot slice
-Z1 = Z[:,2/t]
-rec1 = reconstruction[:,2/t]
-recT1 = reconstructionT[:,2/t]
-
 fig = plt.figure()
 ax1 = fig.add_subplot(111)
-#ax1.set_title("Reconstruction by the 'natural' method")
-ax1.plot(x,Z1, 'r')
-ax1.plot(x,rec1, 'g')
-#ax2.set_title("Reconstruction by the optimal method")
-ax1.plot(x,recT1, 'b')
+ax1.plot(x,Z[:,2/t], 'r',label='Gaussian')
+ax1.plot(x,reconstruction[:,2/t], 'g',label='"Natural" method')
+ax1.plot(x,reconstructionT[:,2/t], 'b',label='Optimal method')
+plt.legend(loc='upper left');
 plt.show()

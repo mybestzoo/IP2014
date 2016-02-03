@@ -8,6 +8,7 @@ from numpy.random import randn
 import matplotlib
 import matplotlib.cm as cm
 import matplotlib.mlab as mlab
+import scipy
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -96,7 +97,7 @@ def iradonT(radon_image, theta=None, output_size=None,
     img = util.pad(radon_image, pad_width, mode='constant', constant_values=0)
 
     # Construct the Fourier filter
-    delta = 1
+    #delta = 1
     l1 = (2*np.pi)**(-4/5) * (delta)**(8/5) /5
     l2 = (2*np.pi)**(-4/5) * (delta)**(-2/5) *4/5
 
@@ -156,78 +157,76 @@ def iradonT(radon_image, theta=None, output_size=None,
 
     return reconstructed * np.pi / (2 * len(th))
 
-delta = 1
-x = np.arange(-2.0, 2.0, 0.025)
-y = np.arange(-2.0, 2.0, 0.025)
+
+#MAIN PROGRAM 
+delta = 0.1
+x = np.arange(-2.0, 2.0, 0.001)
+y = np.arange(-2.0, 2.0, 0.001)
 X, Y = np.meshgrid(x, y)
 Z = 1/np.sqrt(np.pi) * np.exp(-(X**2 + Y**2)/2)
-Z1 = delta/np.sqrt(np.pi) * np.exp(-(X**2 + Y**2)/2)
-Z1[X**2+Y**2 > 4] = 0
-Z2 = mlab.bivariate_normal(X, Y, 1.0, 1.0, 0.0, 0.0) 
-Z3 = mlab.bivariate_normal(X, Y, 1.5, 0.5, 1, 1)
-# difference of Gaussians
+
+#make image
 image = Z#10.0 * (Z2 - Z1)
 image[X**2+Y**2 > 4] = 0
 
-# Or you can use a colormap to specify the colors; the default
-# colormap will be used for the contour lines
-plt.figure()
-im = plt.imshow(image, interpolation='bilinear', origin='lower',
-                cmap=cm.gray, extent=(-2, 2, -2, 2))
-levels = np.arange(-1.2, 1.6, 0.2)
-CS = plt.contour(image, levels,
-                 origin='lower',
-                 linewidths=2,
-                 extent=(-2, 2, -2, 2))
+#plot image
+fig = plt.figure()
+fig.suptitle("Original image")
+plt.contourf(X,Y,image)
+plt.show()  
 
-plt.show()
-
-#MAIN PROGRAM   
-
+#make sinogram
 theta = np.linspace(0., 180., max(image.shape), endpoint=False)
 sinogram = radon(image, theta=theta, circle=True)
-sinoErr = radon(Z1, theta=theta, circle=True)
+
+#make error function
+u = np.arange(0.0, 180.0, 180/160)
+v = np.arange(-1.0, 1.0, 2/160)
+U, V = np.meshgrid(u, v)
+a = randn(1,1)
+b = randn(1,1)
+ErNorm = np.sqrt( 2*np.pi * (b**2*(2+np.sin(2)) - a**2*(np.sin(2)-2)) / 2 )
+sinoErr = a*np.sin(V)+b*np.cos(V) / ErNorm
 
 #add noise
-sinogram = sinogram + sinoErr
+#sinogram = sinogram + delta*sinoErr
 
 #reconstruct
 reconstruction = iradonT(sinogram, theta=theta, filter = 'ramp', circle = True)
 reconstructionT = iradonT(sinogram, theta=theta, filter = 'tigran',circle = True)
 
+#plot reconstructed images
+fig, (ax1, ax2) = plt.subplots(1, 2)
+ax1.set_title("Reconstruction by the 'natural' method")
+ax1.contourf(X,Y,reconstruction)
+ax2.set_title("Reconstruction by the optimal method")
+ax2.contourf(X,Y,reconstructionT)
+plt.show()
+
+#calculate error
 error = reconstruction - image
 print('Natural reconstruction error: %.3g' % np.sqrt(np.mean(error**2)))
 errorT = reconstructionT - image
 print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(errorT**2)))
 
-plt.figure()
-im = plt.imshow(reconstruction, interpolation='bilinear', origin='lower',
-                cmap=cm.gray, extent=(-2, 2, -2, 2))
-levels = np.arange(-1.2, 1.6, 0.2)
-CS = plt.contour(reconstruction, levels,
-                 origin='lower',
-                 linewidths=2,
-                 extent=(-2, 2, -2, 2))
+#plot error
+#fig, (ax1, ax2) = plt.subplots(1, 2)
+#ax1.set_title("Error of Natural filter")
+#ax1.contourf(X,Y,error)
+#ax2.set_title("Error of Optimal filter")
+#ax2.contourf(X,Y,errorT)
+#plt.show()
 
-plt.show()
+#plot slice
+Z1 = Z[:,1]
+rec1 = reconstruction[:,1]
+recT1 = reconstructionT[:,1]
 
-plt.figure()
-im = plt.imshow(reconstructionT, interpolation='bilinear', origin='lower',
-                cmap=cm.gray, extent=(-2, 2, -2, 2))
-levels = np.arange(-1.2, 1.6, 0.2)
-CS = plt.contour(reconstructionT, levels,
-                 origin='lower',
-                 linewidths=2,
-                 extent=(-2, 2, -2, 2))
-
-plt.show()
-
-
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4.5),
-                              sharex=True, sharey=True,
-                             subplot_kw={'adjustable': 'box-forced'})
-ax1.set_title("Error of Natural filter")
-ax1.imshow(error, cmap=plt.cm.Greys_r)
-ax2.set_title("Error of Optimal filter")
-ax2.imshow(errorT, cmap=plt.cm.Greys_r)
+fig = plt.figure()
+ax1 = fig.add_subplot(111)
+#ax1.set_title("Reconstruction by the 'natural' method")
+ax1.plot(x,Z1, 'r')
+ax1.plot(x,rec1, 'g')
+#ax2.set_title("Reconstruction by the optimal method")
+ax1.plot(x,recT1, 'b')
 plt.show()

@@ -160,8 +160,9 @@ def iradonT(radon_image, theta=None, output_size=None,
 
 #MAIN PROGRAM 
 delta = 0.1
-x = np.arange(-2.0, 2.0, 0.001)
-y = np.arange(-2.0, 2.0, 0.001)
+t = 0.025
+x = np.arange(-2.0, 2.0, t)
+y = np.arange(-2.0, 2.0, t)
 X, Y = np.meshgrid(x, y)
 Z = 1/np.sqrt(np.pi) * np.exp(-(X**2 + Y**2)/2)
 
@@ -180,8 +181,9 @@ theta = np.linspace(0., 180., max(image.shape), endpoint=False)
 sinogram = radon(image, theta=theta, circle=True)
 
 #make error function
-u = np.arange(0.0, 180.0, 180/160)
-v = np.arange(-1.0, 1.0, 2/160)
+step = np.shape(sinogram)[0]
+u = np.arange(0.0, 180.0, 180/step)
+v = np.arange(-1.0, 1.0, 2/step)
 U, V = np.meshgrid(u, v)
 a = randn(1,1)
 b = randn(1,1)
@@ -189,7 +191,7 @@ ErNorm = np.sqrt( 2*np.pi * (b**2*(2+np.sin(2)) - a**2*(np.sin(2)-2)) / 2 )
 sinoErr = a*np.sin(V)+b*np.cos(V) / ErNorm
 
 #add noise
-#sinogram = sinogram + delta*sinoErr
+sinogram = sinogram + delta*sinoErr
 
 #reconstruct
 reconstruction = iradonT(sinogram, theta=theta, filter = 'ramp', circle = True)
@@ -218,9 +220,9 @@ print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(errorT**2)))
 #plt.show()
 
 #plot slice
-Z1 = Z[:,1]
-rec1 = reconstruction[:,1]
-recT1 = reconstructionT[:,1]
+Z1 = Z[:,2/t]
+rec1 = reconstruction[:,2/t]
+recT1 = reconstructionT[:,2/t]
 
 fig = plt.figure()
 ax1 = fig.add_subplot(111)

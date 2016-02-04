@@ -89,7 +89,7 @@ def iradonT(radon_image, theta=None, output_size=None,
     img = util.pad(radon_image, pad_width, mode='constant', constant_values=0)
 
     # Construct the Fourier filter
-    delta = 1
+    delta = 0.01
     l1 = (2*np.pi)**(-4/5) * (delta)**(8/5) /5
     l2 = (2*np.pi)**(-4/5) * (delta)**(-2/5) *4/5
 
@@ -101,7 +101,7 @@ def iradonT(radon_image, theta=None, output_size=None,
     elif filter == "tigran":
         g = fftfreq(projection_size_padded).reshape(-1, 1)
         w = abs(omega)
-        g[1:] = l2 / (l1 * ((w[1:])**5 / (2*np.pi)) + l2) + np.sqrt(l1*l2) * (w[1:])**2 * np.sqrt(l1*((w[1:])**5 / (2*np.pi)) + l2 - w[1:]/(2*np.pi)) / (l1 * ((w[1:])**5 / (2*np.pi)) + l2)
+        g[1:] = l2 / (l1 * ((w[1:])**5 / (2*np.pi)) + l2) - np.sqrt(l1*l2) * (w[1:])**2 * np.sqrt(l1*((w[1:])**5 / (2*np.pi)) + l2 - w[1:]/(2*np.pi)) / (l1 * ((w[1:])**5 / (2*np.pi)) + l2)
         fourier_filter[1:] = fourier_filter[1:] * g[1:]
     elif filter == "shepp-logan":
         # Start from first element to avoid divide by zero
@@ -150,9 +150,8 @@ def iradonT(radon_image, theta=None, output_size=None,
     return reconstructed * np.pi / (2 * len(th))
 
 #MAIN PROGRAM   
-
+delta1 = 1
 image = imread(data_dir + "/phantom.png", as_grey=True)
-#image = rescale(image, scale=0.4)
 
 #fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4.5))
 
@@ -163,16 +162,29 @@ theta = np.linspace(0., 180., max(image.shape), endpoint=False)
 sinogram = radon(image, theta=theta, circle=True)
 
 #add noise
-x=np.arange(-2*np.pi,2*np.pi,4*np.pi/400)
-y=np.arange(-2*np.pi,2*np.pi,4*np.pi/400)
-xx, yy = np.meshgrid(x, y, indexing='ij')
+#x=np.arange(-2*np.pi,2*np.pi,4*np.pi/400)
+#y=np.arange(-2*np.pi,2*np.pi,4*np.pi/400)
+#xx, yy = np.meshgrid(x, y, indexing='ij')
+#
+#r = np.sqrt(xx**2 + yy**2)
+#phi = np.arccos(x/r)
+#
+#z1 = np.sin(2*(r-np.pi)) / (r-np.pi)
+#z2 = z1 * (1 + 0.5*np.cos(4*phi))
+#sinogram = sinogram + 5*randn(400,400) #np.multiply(sinogram,1+0.2*z1)
 
-r = np.sqrt(xx**2 + yy**2)
-phi = np.arccos(x/r)
+#make error function
+step = np.shape(sinogram)[0]
+u = np.arange(0.0, 180.0, 180/step)
+v = np.arange(-1.0, 1.0, 2/step)
+U, V = np.meshgrid(u, v)
+a = randn(1,1)
+b = randn(1,1)
+ErNorm = np.sqrt( 2*np.pi * (b**2*(2+np.sin(2)) - a**2*(np.sin(2)-2)) / 2 )
+sinoErr = a*np.sin(V)+b*np.cos(V) / ErNorm
 
-z1 = np.sin(2*(r-np.pi)) / (r-np.pi)
-z2 = z1 * (1 + 0.5*np.cos(4*phi))
-sinogram = sinogram + 5*randn(400,400) #np.multiply(sinogram,1+0.2*z1)
+#add noise
+sinogram = sinogram + delta1*sinoErr
 
 #reconstruct
 reconstruction = iradonT(sinogram, theta=theta, filter = 'ramp', circle = True)
@@ -200,4 +212,25 @@ ax1.set_title("Error of Natural filter")
 ax1.imshow(error, cmap=plt.cm.Greys_r)
 ax2.set_title("Error of Optimal filter")
 ax2.imshow(errorT, cmap=plt.cm.Greys_r)
+plt.show()
+
+x = np.arange(0, 400, 1)
+y = np.arange(0, 400, 1)
+X, Y = np.meshgrid(x, y)
+
+#plot reconstructed images
+fig, (ax1, ax2) = plt.subplots(1, 2)
+ax1.set_title("Reconstruction by the 'natural' method")
+ax1.contourf(X,Y,reconstruction)
+ax2.set_title("Reconstruction by the optimal method")
+ax2.contourf(X,Y,reconstructionT)
+plt.show()
+
+#plot slices
+fig = plt.figure()
+ax1 = fig.add_subplot(111)
+ax1.plot(x,image[:,200], 'r',label='Gaussian')
+ax1.plot(x,reconstruction[:,200], 'g',label='"Natural" method')
+ax1.plot(x,reconstructionT[:,200], 'b',label='Optimal method')
+plt.legend(loc='upper left');
 plt.show()

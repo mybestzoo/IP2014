@@ -160,21 +160,21 @@ def iradonT(radon_image, theta=None, output_size=None,
 
 #MAIN PROGRAM 
 delta = 10
-t = 0.025
+t = 0.02
 x = np.arange(-2.0, 2.0, t)
 y = np.arange(-2.0, 2.0, t)
 X, Y = np.meshgrid(x, y)
 Z = 1/np.sqrt(np.pi) * np.exp(-(X**2 + Y**2)/2)
 
 #make image
-image = Z#10.0 * (Z2 - Z1)
+image = Z
 image[X**2+Y**2 > 4] = 0
 
 #plot image
-#fig = plt.figure()
+fig = plt.figure()
 #fig.suptitle("Original image")
-#plt.contourf(X,Y,image)
-#plt.show()  
+plt.contourf(X,Y,image)
+plt.show()  
 
 #make sinogram
 theta = np.linspace(0., 180., max(image.shape), endpoint=False)
@@ -197,6 +197,21 @@ sinogram = sinogram + delta*sinoErr
 reconstruction = iradonT(sinogram, theta=theta, filter = 'ramp', circle = True)
 reconstructionT = iradonT(sinogram, theta=theta, filter = 'tigran',circle = True)
 
+#calculate error
+error = reconstruction - image
+print('Natural reconstruction error: %.3g' % np.sqrt(np.mean(error**2)))
+errorT = reconstructionT - image
+print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(errorT**2)))
+
+#plot slices
+fig = plt.figure()
+ax1 = fig.add_subplot(111)
+ax1.plot(x,Z[:,2/t], 'r',label='Gaussian')
+ax1.plot(x,reconstruction[:,2/t], 'g',label='"Natural" method')
+ax1.plot(x,reconstructionT[:,2/t], 'b',label='Optimal method')
+plt.legend(loc='upper left');
+plt.show()
+
 #plot reconstructed images
 fig, (ax1, ax2) = plt.subplots(1, 2)
 ax1.set_title("Reconstruction by the 'natural' method")
@@ -205,12 +220,6 @@ ax2.set_title("Reconstruction by the optimal method")
 ax2.contourf(X,Y,reconstructionT)
 plt.show()
 
-#calculate error
-error = reconstruction - image
-print('Natural reconstruction error: %.3g' % np.sqrt(np.mean(error**2)))
-errorT = reconstructionT - image
-print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(errorT**2)))
-
 #plot error
 #fig, (ax1, ax2) = plt.subplots(1, 2)
 #ax1.set_title("Error of Natural filter")
@@ -218,11 +227,3 @@ print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(errorT**2)))
 #ax2.set_title("Error of Optimal filter")
 #ax2.contourf(X,Y,errorT)
 #plt.show()
-
-fig = plt.figure()
-ax1 = fig.add_subplot(111)
-ax1.plot(x,Z[:,2/t], 'r',label='Gaussian')
-ax1.plot(x,reconstruction[:,2/t], 'g',label='"Natural" method')
-ax1.plot(x,reconstructionT[:,2/t], 'b',label='Optimal method')
-plt.legend(loc='upper left');
-plt.show()

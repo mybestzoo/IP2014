@@ -8,7 +8,7 @@
 %\usepackage{iopams}
 \usepackage{graphicx,float}
 \usepackage[caption = false]{subfig}
-\usepackage{subcaption}
+%\usepackage{subcaption}
 %\usepackage{setspace}
 %\usepackage{cite}
 %\usepackage{indentfirst}
@@ -97,7 +97,7 @@
 	\|\Lambda^\alpha f\|_{L_2(\mathbb R^d)}\leqslant  1;\quad Pf\in L_2(\mathcal G_{k,d}) \}.  $$
 	Suppose that for a function $Pf$ we know an approximation $g\in L_2(\mathcal G_{k,d})$ such that
 	$$\|Pf-g\|_{L_2(\mathcal G_{k,d})}\leqslant\delta, \quad\delta>0.$$
-	On this information we want to recover function $\Lambda^\beta f$ as an element of $ L_2(\mathbb R^d)$, where $0\leqslant\beta<\alpha$. An arbitrary map $m:L_2(\mathcal G_{k,d})\rightarrow L_2(\mathbb R^d)$ is called a method $m$ of recovery. Define the error $e(\delta,m)$ of the method by
+	On this information we want to recover function $\Lambda^\beta f$ as an element of $ L_2(\mathbb R^d)$, where $0\leqslant\beta<\alpha$. We consider all possible methods or recovery -- arbitrary maps $m:L_2(\mathcal G_{k,d})\rightarrow L_2(\mathbb R^d)$. For every method of recovery $m$ define its error $e(\delta,m)$ by
 	\[
 	e(\delta,m)=\sup_{
 		\begin{smallmatrix}
@@ -105,12 +105,12 @@
 		\|Pf-g\|_{L_2(\mathcal G_{k,d})}\leqslant \delta
 		\end{smallmatrix}} ||\Lambda^\beta f-m(g)||_{L_2(\mathbb R^d)}.
 	\] 
-	Next, define the error of the optimal recovery by
+	The least of the errors among all the methods is called the error of the optimal recovery
 	\begin{equation}
 	\label{opter}
 	E(\delta)=\inf_{m:L_2(\mathcal G_{k,d})\rightarrow L_2(\mathbb R^d)}e(\delta,m).
 	\end{equation}
-	The method of recovery $m$ is optimal if the error of the optimal recovery $E(\delta)$ is achieved by the error $e(\delta,m)$ of $m$, i.e. $e(\delta,m)=E(\delta)$. Our goal is to present the explicit construction for the optimal methods and the error of the optimal recovery.
+	The method $m$ for which the error of the optimal recovery is attained is called optimal, i.e. $e(\delta,m)=E(\delta)$. Our goal is to present the explicit construction for the optimal methods and the error of the optimal recovery.
 	
 	When applied to $g(\pi,x'')$ the Fourier transform and operator $\Lambda$ act on the second variable and we use notation $g_\pi(x'')=g(\pi,x'')$. Define functions $t(\sigma)$, $y(\sigma)$ and constants $\widehat\lambda_1$, $\widehat\lambda_2$ by formulas
 	\begin{equation}
@@ -145,13 +145,13 @@
 	\end{theorem}
 	
 	\begin{proof}
-		Consider the extremal problem
+		Consider the so-called dual problem to \eqref{opter}
 		\[
 		\|\Lambda^\beta f\|^2_{L_2(\mathbb R^d)}\to\sup,\quad \|
 		\Lambda^\alpha f\|^2_{L_2(\mathbb R^d)}\leqslant  1,\quad
-		\|Pf\|^2_{L_2(\mathcal G_{k,d})}\leqslant  \delta^2,
-		\] which is called the dual problem to \eqref{opter}.
-		Its solution gives the lower bound for $E(\delta)$. Indeed, for an arbitrary method $m$:
+		\|Pf\|^2_{L_2(\mathcal G_{k,d})}\leqslant  \delta^2.
+		\]
+		Its solution gives the lower bound for $E(\delta)$ due to the following inequalities, where $m$ is an arbitrary method:
 		\begin{multline*}
 		e(\delta,m)= \sup_{
 			\begin{smallmatrix}
@@ -178,7 +178,7 @@
 			\end{smallmatrix}}
 		\|\Lambda^\beta f\|_{L_2(\mathbb{R}^d)}.
 		\end{multline*}
-		The inequalities are true due to the central symmetry of the set $W$. Hence
+		To obtain the inequalities we notice that if function $f$ is admissible, then function $-f$ is also admissible, i.e. the set $W$ is centrally symmetric. Hence
 		$$E(\delta)\geqslant\sup_{
 			\begin{smallmatrix}
 			f\in W\\ 
@@ -248,7 +248,7 @@
 		d\mu^*=\frac{(\sigma^*)^{-d+1-2\alpha}}{|\mathbb S^{d-1}|}\delta_{|\xi|=\sigma^*}.
 		$$ 
 		It's admissible in \eqref{mes}, satisfies the complementary slackness condition and minimizes the Lagrange function, as $L(d\mu^*,\widehat\lambda_1,\widehat\lambda_2)=-\widehat\lambda_1-\widehat\lambda_2\delta^2$. Thus, it brings the extremum in problem \eqref{mes}, which solution is equal to $\widehat\lambda_1+\widehat\lambda_2\delta^2$.
-		By a standard approximation of the $\delta$-function it's easy to show that the solution of the dual problem is the same as in \eqref{mes}. Thereby we obtain a lower bound for the error of the optimal recovery $E(\delta)\geqslant\sqrt{\widehat\lambda_1+\widehat\lambda_2\delta^2}$.
+		By a standard approximation of the $\delta$-function it's easy to show that the solution of the dual problem is the same as in \eqref{mes}. Thereby we obtain inequality $E(\delta)\geqslant\sqrt{\widehat\lambda_1+\widehat\lambda_2\delta^2}$, which represents a lower bound for the error of the optimal recovery .
 		%METHOD
 		
 		Now we show, that the error of the methods \eqref{method} is equal to the achieved estimate. First notice an isometry property of the k-plane transform (theorem 3.97 from \cite{MA})
@@ -285,15 +285,15 @@
 		=\int_{G_{k,d}}\int_{\pi^\perp}\frac{|\xi''|^k}{\gamma_{d-k,d}}\left||\xi''|^\beta\widehat{f}(\xi'')-(2\pi)^{-k/2}|\xi''|^\beta a(\xi'')\widehat g_\pi(\xi'')\right|^2d\xi'' d\pi=\\
 		=\int_{G_{k,d}}\int_{\pi^\perp}\frac{|\xi''|^k}{\gamma_{d-k,d}}\left||\xi''|^\beta a(\xi'')(2\pi)^{-k/2}\left(\widehat{g_\pi }(\xi'')-(2\pi)^{k/2}\widehat f(\xi'' )\right)+\widehat f(\xi'')|\xi''|^\beta\left(a(\xi'')-1\right)\right|^2d\xi''d\pi .
 		\end{multline*}
-		Transform this expression using the Cauchy-Schwarz inequality $|qz|\leqslant |z||q|$ applied to vectors
+		We transform this expression by applying the Cauchy-Schwarz inequality $|qz|\leqslant |z||q|$, where
 		\[
 		z=\left((2\pi)^{-k/2}\frac{|\xi''|^\beta a(\xi'')}{\sqrt{\widehat\lambda_2}},\frac{\sqrt{\gamma_{d-k,d}}}{|\xi''|^{\frac{k+2\alpha}{2}}}\frac{|\xi''|^\beta(a(\xi'')-1)}{\sqrt{\widehat\lambda_1}}\right),
 		\]
 		\[
 		q=\left(\left(\widehat{g_\pi }(\xi'')-(2\pi)^{k/2}\widehat
-		f(\xi'' )\right)\sqrt{\widehat\lambda_2},\frac{|\xi''|^{\frac{k+2\alpha}{2}}}{\sqrt{\gamma_{d-k,d}}}\sqrt{\widehat\lambda_1}\widehat f(\xi'' )\right).
+		f(\xi'' )\right)\sqrt{\widehat\lambda_2},\frac{|\xi''|^{\frac{k+2\alpha}{2}}}{\sqrt{\gamma_{d-k,d}}}\sqrt{\widehat\lambda_1}\widehat f(\xi'' )\right)
 		\]
-		We obtain
+		to obtain
 		\begin{multline*}  
 		\left\|\Lambda^\beta f-m_a(g)\right\|^2_{L_2(\mathbb R^d)}\leqslant  \\
 		\leqslant \int_{G_{k,d}}\int_{\pi^\perp}
@@ -303,9 +303,8 @@
 		\[
 		A(\xi'')=\frac{|\xi''|^{k+2\beta}}{\gamma_{d-k,d}}\left((2\pi)^{-k}\frac{a^2(\xi'')}{\widehat\lambda_2}+\frac{\gamma_{d-k,d}}{|\xi''|^{k+2\alpha}}\frac{(a(\xi'')-1)^2}{\widehat\lambda_1}\right).
 		\]
-		The condition \eqref{a} is equivalent to $A(\xi'')\leqslant 1$, which leads to $\left\|\Lambda^\beta f-m_a(g)\right\|^2_{L_2(\mathbb R^d)}\leqslant
-		\widehat\lambda_1+\widehat\lambda_2\delta^2.$
-		Thus, we end with the proof.
+		Here $A(\xi'')\leqslant 1$ due to \eqref{a} and other terms could be estimated by the constraints of the class $W$ to achieve $\left\|\Lambda^\beta f-m_a(g)\right\|^2_{L_2(\mathbb R^d)}\leqslant
+		\widehat\lambda_1+\widehat\lambda_2\delta^2,$ which ends the proof.
 		
 	\end{proof}
 	
@@ -422,12 +421,12 @@
 	To visualize the results we take Gaussian function $f(x)=\frac{1}{\sqrt{\pi}}e^\frac{-|x|^2}{2}$, which belongs to class $W$ for $d=2$, $k=1$, $\alpha = 2$. Its Radon transform is independent of $\theta$ (also a Gaussian), that we denote $Rf(s)$. We add an error in form 
 	
 	$$e(s) = \begin{cases}
-a*\sin(s)+b*cos(s), & s\in[-1,1] \\
-0 & s\notin[-1,1]
-\end{cases}
-$$
-where $a$ and $b$ are normally distributed numbers with mean $0$ and variance $1$. The inaccurate approximation of the Radon transform in this case is presented by $g(s)=Rf(s)+\delta \cdot e(s)/\|e\|_{L_2(Z)}$. We apply the optimal method to recover function $f$ for $\delta=10$ and compare it to the recovery by the "natural" method, which assumes $a(\sigma)=1$.
-
+	a*\sin(s)+b*cos(s), & s\in[-1,1] \\
+	0 & s\notin[-1,1]
+	\end{cases}
+	$$
+	where $a$ and $b$ are normally distributed numbers with mean $0$ and variance $1$. The inaccurate approximation of the Radon transform in this case is presented by $g(s)=Rf(s)+\delta \cdot e(s)/\|e\|_{L_2(Z)}$. We apply the optimal method to recover function $f$ for $\delta=10$ and compare it to the recovery by the "natural" method, which assumes $a(\sigma)=1$.
+	
 	\begin{figure}[H]
 		\subfloat[Contour plot of Gaussian function]{\includegraphics[width = .5\linewidth]{Gaussian.png}}
 		\subfloat[Slice of the Gaussian function and its recovery.]{\includegraphics[width = .5\linewidth]{Slice.png}}
@@ -440,7 +439,7 @@ where $a$ and $b$ are normally distributed numbers with mean $0$ and variance $1
 		\caption{Contour plots of recovery results by the "natural" (left) and optimal (right) methods.}
 		\label{2}
 	\end{figure}
-The results of the recovery are presented on figures \ref{1} and \ref{2}. Images show, that the optimal method provides a more accurate result with smaller error than the "natural" method.
+	The results of the recovery are presented in figures \ref{1} and \ref{2}. Images show, that the optimal method provides a more accurate result with smaller error than the "natural" method.
 	
 	
 	\section*{References}

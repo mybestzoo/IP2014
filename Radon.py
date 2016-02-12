@@ -2,6 +2,7 @@
 from __future__ import division
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy
 
 from scipy.fftpack import fftshift, fft, ifft, fftfreq
 from skimage.io import imread
@@ -9,6 +10,7 @@ from skimage import data_dir, util
 from skimage.transform import radon, rescale
 from skimage.transform.radon_transform import _sinogram_circle_to_square
 from numpy.random import randn
+from scipy.stats import multivariate_normal
 
 def iradonT(radon_image, theta=None, output_size=None,
            filter="ramp", interpolation="linear", circle=False):
@@ -89,7 +91,7 @@ def iradonT(radon_image, theta=None, output_size=None,
     img = util.pad(radon_image, pad_width, mode='constant', constant_values=0)
 
     # Construct the Fourier filter
-    delta = 0.01
+    #delta = 0.005
     l1 = (2*np.pi)**(-4/5) * (delta)**(8/5) /5
     l2 = (2*np.pi)**(-4/5) * (delta)**(-2/5) *4/5
 
@@ -149,12 +151,17 @@ def iradonT(radon_image, theta=None, output_size=None,
 
     return reconstructed * np.pi / (2 * len(th))
 
-#MAIN PROGRAM   
-delta1 = 1
+#MAIN PROGRAM
 image = imread(data_dir + "/phantom.png", as_grey=True)
 
-#fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4.5))
+# smooth image with Gaussian filter
+image = scipy.ndimage.filters.gaussian_filter(image,3)
 
+fig = plt.figure()
+plt.imshow(image, cmap=plt.cm.Greys_r)
+plt.show()
+
+#fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4.5))
 #ax1.set_title("Original")
 #ax1.imshow(image, cmap=plt.cm.Greys_r)
 
@@ -174,26 +181,31 @@ sinogram = radon(image, theta=theta, circle=True)
 #sinogram = sinogram + 5*randn(400,400) #np.multiply(sinogram,1+0.2*z1)
 
 #make error function
-step = np.shape(sinogram)[0]
-u = np.arange(0.0, 180.0, 180/step)
-v = np.arange(-1.0, 1.0, 2/step)
-U, V = np.meshgrid(u, v)
-a = randn(1,1)
-b = randn(1,1)
-ErNorm = np.sqrt( 2*np.pi * (b**2*(2+np.sin(2)) - a**2*(np.sin(2)-2)) / 2 )
-sinoErr = a*np.sin(V)+b*np.cos(V) / ErNorm
+#step = np.shape(sinogram)[0]
+#u = np.arange(0.0, 180.0, 180/step)
+#v = np.arange(-1.0, 1.0, 2/step)
+#U, V = np.meshgrid(u, v)
+#a = randn(1,1)
+#b = randn(1,1)
+#ErNorm = np.sqrt( 2*np.pi * (b**2*(2+np.sin(2)) - a**2*(np.sin(2)-2)) / 2 )
+#sinoErr = a*np.sin(V)+b*np.cos(V) / ErNorm
 
 #add noise
-sinogram = sinogram + delta1*sinoErr
+NoiseLvl =  0.01  
+delta = NoiseLvl*np.max(sinogram)
+std = delta/np.sqrt(4*np.pi)
+sinogram = sinogram + std*randn(400,400)
 
 #reconstruct
-reconstruction = iradonT(sinogram, theta=theta, filter = 'ramp', circle = True)
+reconstruction = iradonT(sinogram, theta=theta, filter = 'hann', circle = True)
 reconstructionT = iradonT(sinogram, theta=theta, filter = 'tigran',circle = True)
 
-error = reconstruction - image
-print('Natural reconstruction error: %.3g' % np.sqrt(np.mean(error**2)))
-errorT = reconstructionT - image
-print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(errorT**2)))
+error = np.abs(reconstruction - image)
+#print('Natural reconstruction error: %.3g' % np.sqrt(np.mean(error**2)))
+print('Natural reconstruction error: %.3g' % np.linalg.norm(error))
+errorT = np.abs(reconstructionT - image)
+#print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(errorT**2)))
+print('Optimal reconstruction error: %.3g' % np.linalg.norm(errorT))
 
 imkwargs = dict(vmin=-0.2, vmax=0.2)
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4.5),
@@ -221,9 +233,9 @@ X, Y = np.meshgrid(x, y)
 #plot reconstructed images
 fig, (ax1, ax2) = plt.subplots(1, 2)
 ax1.set_title("Reconstruction by the 'natural' method")
-ax1.contourf(X,Y,reconstruction)
+ax1.contour(X,Y,reconstruction)
 ax2.set_title("Reconstruction by the optimal method")
-ax2.contourf(X,Y,reconstructionT)
+ax2.contour(X,Y,reconstructionT)
 plt.show()
 
 #plot slices
@@ -232,5 +244,13 @@ ax1 = fig.add_subplot(111)
 ax1.plot(x,image[:,200], 'r',label='Gaussian')
 ax1.plot(x,reconstruction[:,200], 'g',label='"Natural" method')
 ax1.plot(x,reconstructionT[:,200], 'b',label='Optimal method')
+plt.legend(loc='upper left');
+plt.show()
+
+#plot errors
+fig = plt.figure()
+ax1 = fig.add_subplot(111)
+ax1.plot(x,error[:,200], 'g',label='"Natural" method')
+ax1.plot(x,errorT[:,200], 'b',label='Optimal method')
 plt.legend(loc='upper left');
 plt.show()

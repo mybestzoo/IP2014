@@ -159,8 +159,7 @@ def iradonT(radon_image, theta=None, output_size=None,
 
 
 #MAIN PROGRAM 
-delta = 10
-t = 0.02
+t = 0.01
 x = np.arange(-2.0, 2.0, t)
 y = np.arange(-2.0, 2.0, t)
 X, Y = np.meshgrid(x, y)
@@ -171,37 +170,45 @@ image = Z
 image[X**2+Y**2 > 4] = 0
 
 #plot image
-fig = plt.figure()
+#fig = plt.figure()
 #fig.suptitle("Original image")
-plt.contourf(X,Y,image)
-plt.show()  
+#plt.contourf(X,Y,image)
+#plt.show()  
 
 #make sinogram
 theta = np.linspace(0., 180., max(image.shape), endpoint=False)
 sinogram = radon(image, theta=theta, circle=True)
 
-#make error function
-step = np.shape(sinogram)[0]
-u = np.arange(0.0, 180.0, 180/step)
-v = np.arange(-1.0, 1.0, 2/step)
-U, V = np.meshgrid(u, v)
-a = randn(1,1)
-b = randn(1,1)
-ErNorm = np.sqrt( 2*np.pi * (b**2*(2+np.sin(2)) - a**2*(np.sin(2)-2)) / 2 )
-sinoErr = a*np.sin(V)+b*np.cos(V) / ErNorm
+#add noise Random
+NoiseLvl =  0.01 
+delta = NoiseLvl*np.max(sinogram)
+std = delta/np.sqrt(4*np.pi)
+sinogram = sinogram + std*randn(400,400)
 
-#add noise
-sinogram = sinogram + delta*sinoErr
+#add noise SIN + COS
+#NoiseLvl =  0.5 
+#delta = NoiseLvl*np.max(sinogram)
+#step = np.shape(sinogram)[0]
+#u = np.arange(0.0, 180.0, 180/step)
+#v = np.arange(-1.0, 1.0, 2/step)
+#U, V = np.meshgrid(u, v)
+#a = randn(1,1)
+#b = randn(1,1)
+#ErNorm = np.sqrt( 2*np.pi * (b**2*(2+np.sin(2)) - a**2*(np.sin(2)-2)) / 2 )
+#sinoErr = (a*np.sin(V)+b*np.cos(V)) / ErNorm
+#sinogram = sinogram + delta*sinoErr
 
 #reconstruct
 reconstruction = iradonT(sinogram, theta=theta, filter = 'ramp', circle = True)
 reconstructionT = iradonT(sinogram, theta=theta, filter = 'tigran',circle = True)
 
 #calculate error
-error = reconstruction - image
-print('Natural reconstruction error: %.3g' % np.sqrt(np.mean(error**2)))
-errorT = reconstructionT - image
-print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(errorT**2)))
+error = np.abs(reconstruction - image)
+#print('Natural reconstruction error: %.3g' % np.sqrt(np.mean(error**2)))
+print('Natural reconstruction error: %.3g' % np.linalg.norm(error))
+errorT = np.abs(reconstructionT - image)
+#print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(errorT**2)))
+print('Optimal reconstruction error: %.3g' % np.linalg.norm(errorT))
 
 #plot slices
 fig = plt.figure()
@@ -209,6 +216,14 @@ ax1 = fig.add_subplot(111)
 ax1.plot(x,Z[:,2/t], 'r',label='Gaussian')
 ax1.plot(x,reconstruction[:,2/t], 'g',label='"Natural" method')
 ax1.plot(x,reconstructionT[:,2/t], 'b',label='Optimal method')
+plt.legend(loc='upper left');
+plt.show()
+
+#plot error
+fig = plt.figure()
+ax1 = fig.add_subplot(111)
+ax1.plot(x,error[:,2/t], 'g',label='"Natural" method')
+ax1.plot(x,errorT[:,2/t], 'b',label='Optimal method')
 plt.legend(loc='upper left');
 plt.show()
 

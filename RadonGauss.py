@@ -178,35 +178,36 @@ image[X**2+Y**2 > 4] = 0
 #make sinogram
 theta = np.linspace(0., 180., max(image.shape), endpoint=False)
 sinogram = radon(image, theta=theta, circle=True)
+print(np.max(sinogram))
 
 #add noise Random
-NoiseLvl =  0.01 
-delta = NoiseLvl*np.max(sinogram)
-std = delta/np.sqrt(4*np.pi)
-sinogram = sinogram + std*randn(400,400)
+#NoiseLvl =  0.01 
+#delta = NoiseLvl*np.max(sinogram)
+#std = delta/np.sqrt(4*np.pi)
+#sinogram = sinogram + std*randn(400,400)
 
 #add noise SIN + COS
-#NoiseLvl =  0.5 
-#delta = NoiseLvl*np.max(sinogram)
-#step = np.shape(sinogram)[0]
-#u = np.arange(0.0, 180.0, 180/step)
-#v = np.arange(-1.0, 1.0, 2/step)
-#U, V = np.meshgrid(u, v)
-#a = randn(1,1)
-#b = randn(1,1)
-#ErNorm = np.sqrt( 2*np.pi * (b**2*(2+np.sin(2)) - a**2*(np.sin(2)-2)) / 2 )
-#sinoErr = (a*np.sin(V)+b*np.cos(V)) / ErNorm
-#sinogram = sinogram + delta*sinoErr
+NoiseLvl =  0.1 
+delta = NoiseLvl*np.max(sinogram)
+step = np.shape(sinogram)[0]
+u = np.arange(0.0, 180.0, 180/step)
+v = np.arange(-1.0, 1.0, 2/step)
+U, V = np.meshgrid(u, v)
+a = randn(1,1)
+b = randn(1,1)
+ErNorm = np.sqrt( 2*np.pi * (b**2*(2+np.sin(2)) - a**2*(np.sin(2)-2)) / 2 )
+sinoErr = (a*np.sin(V)+b*np.cos(V)) / ErNorm
+sinogram = sinogram + delta*sinoErr
 
 #reconstruct
 reconstruction = iradonT(sinogram, theta=theta, filter = 'ramp', circle = True)
 reconstructionT = iradonT(sinogram, theta=theta, filter = 'tigran',circle = True)
 
 #calculate error
-error = np.abs(reconstruction - image)
+error = reconstruction - image
 #print('Natural reconstruction error: %.3g' % np.sqrt(np.mean(error**2)))
 print('Natural reconstruction error: %.3g' % np.linalg.norm(error))
-errorT = np.abs(reconstructionT - image)
+errorT = reconstructionT - image
 #print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(errorT**2)))
 print('Optimal reconstruction error: %.3g' % np.linalg.norm(errorT))
 
@@ -228,17 +229,11 @@ plt.legend(loc='upper left');
 plt.show()
 
 #plot reconstructed images
-fig, (ax1, ax2) = plt.subplots(1, 2)
-ax1.set_title("Reconstruction by the 'natural' method")
-ax1.contourf(X,Y,reconstruction)
-ax2.set_title("Reconstruction by the optimal method")
-ax2.contourf(X,Y,reconstructionT)
-plt.show()
+fig = plt.figure()
+plt.contourf(X,Y,reconstruction)
+plt.show() 
 
-#plot error
-#fig, (ax1, ax2) = plt.subplots(1, 2)
-#ax1.set_title("Error of Natural filter")
-#ax1.contourf(X,Y,error)
-#ax2.set_title("Error of Optimal filter")
-#ax2.contourf(X,Y,errorT)
-#plt.show()
+#plot image
+fig = plt.figure()
+plt.contourf(X,Y,reconstructionT)
+plt.show() 

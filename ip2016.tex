@@ -37,7 +37,7 @@
 	\submitto{Inverse Problems}
 	\maketitle
 	
-	In general, a problem of the optimal recovery, studied in papers \cite{SM,MR,MR1}, is to recover a value of a linear operator on a subset (class) in a linear space from a value of another linear operator (called information), measured with an error in a given metric. In most papers (starting from \cite{O} and recent \cite{OS,MO3}) an information is considered to be a linear functional or an operator that maps a function to its values on a set of points, its Fourier coefficients or Fourier transform. In the present paper we consider the k-plane transform -- an operator, that maps a function on $\mathbb R^d$ to the set of its integrals over all k-planes. This operator is widely used in the computerized tomography theory, which deals with the numerical reconstruction of functions from their linear integrals. Special cases are the Radon transform ($k=d-1$) and the X-ray transform ($k=1$). For the particular classes of functions there exist different inversion formulas that allow to produce an exact reconstruction (see \cite{Na}). We consider the case when the k-plane transform is measured with an error $\delta>0$ in the mean square metric. In the optimal recovery theory operators of this kind previously appeared in \cite{LS}, where for a function on the unit disk the information is the Radon transform measured in a finite number of directions, papers \cite{D,B} considering the radial integration operator on the classes of analytic and harmonic functions and paper \cite{B1}, where the Radon transform  is considered on the class of harmonic functions in a unit ball. 
+	In general, a problem of the optimal recovery, studied in papers \cite{SM,MR,MR1}, is to recover a value of a linear operator on a subset (class) in a linear space from a value of another linear operator (called information), measured with an error in a given metric. In most papers (starting from \cite{O} and recent \cite{OS,MO3}) an information is considered to be a linear functional or an operator that maps a function to its values on a set of points, its Fourier coefficients or Fourier transform. In the present paper we consider the k-plane transform -- an operator, that maps a function on $\mathbb R^d$ to the set of its integrals over all k-planes. This operator is widely used in the computerized tomography theory, which deals with the numerical reconstruction of functions from their linear integrals. Special cases are the Radon transform ($k=d-1$) and the X-ray transform ($k=1$). For the particular classes of functions there exist different inversion formulas that allow to produce an exact reconstruction (see \cite{Na}). We consider the case when the k-plane transform is measured with an error $\delta>0$ in the mean square metric. In the optimal recovery theory operators of this kind previously appeared in \cite{LS}, where for a function on the unit disk the information is the Radon transform measured in a finite number of directions and paper \cite{D} considering the radial integration operator on the class of analytic functions. In paper \cite{B} we consider the Hardy space $h_2$ of harmonic functions in a unit ball in $\mathbb R^d$, while the information is the radial integration operator, measured with an error. Paper \cite{B1} deals with the same class of functions, but under the action of the Radon transform. The solutions in these two problems arise from the structure of the Hardy space and decomposition of functions into special series by spherical harmonics. Current paper deals with a different class of functions, which is free from the conditions of the Hardy space, that are not typical to computerized tomography problems. We also consider the k-plane transform that include the Radon transform as a particular case $k=d-1$. Though the results in these papers are independent, from a certain point of view we consider a more "natural" class of functions and a more general information operator than in previous papers. Additionally we exploit the connection between the optimal recovery problem and the inequality for operators that arises from its solution to obtain a new inequality for the $k-plane$ transform.
 	
 	Consider $G_{k,d}$ the Grassmanian manifold of (non-oriented) k-dimensional subspaces in $\mathbb R^d$. The group $O(d)$ acts transitively on it and for a $\pi\in G_{k,d}$ its stationary subgroup is $O(k)\times O(d-k)$, where $O(k)$ acts on the $k$-dimensional subspace $\pi$ and $O(d-k)$ -- on its orthogonal complement. Thus $G_{k,d}$ can be identified with the homogeneous space $O(d)/(O(k)\times O(d-k))$. By $d\pi$ we denote the $O(d)$-invariant measure on $G_{k,d}$, unique up to a constant.  According to \cite{Sa} the measure of the Grassmanian can be normalized by
 	\begin{eqnarray*}
@@ -418,29 +418,81 @@
 		R^d)}^\frac{d-1}{2\alpha+d-1},\quad \alpha>0.
 	$$
 	
-	To visualize the results we take Gaussian function $f(x)=\frac{1}{\sqrt{\pi}}e^\frac{-|x|^2}{2}$, which belongs to class $W$ for $d=2$, $k=1$, $\alpha = 2$. Its Radon transform is independent of $\theta$ (also a Gaussian), that we denote $Rf(s)$. We add an error in form 
+	To visualize the results we bring two numerical examples. In the first one we take Gaussian function $f(x)=\frac{1}{\sqrt{\pi}}e^\frac{-|x|^2}{2}$, which belongs to class $W$ for $d=2$, $k=1$, $\alpha = 2$. Its Radon transform is independent of $\theta$ (also a Gaussian), that we denote $Rf(s)$. We add error in the form 
 	
 	$$e(s) = \begin{cases}
 	a*\sin(s)+b*cos(s), & s\in[-1,1] \\
 	0 & s\notin[-1,1]
 	\end{cases}
 	$$
-	where $a$ and $b$ are normally distributed numbers with mean $0$ and variance $1$. The inaccurate approximation of the Radon transform in this case is presented by $g(s)=Rf(s)+\delta \cdot e(s)/\|e\|_{L_2(Z)}$. We apply the optimal method to recover function $f$ for $\delta=10$ and compare it to the recovery by the "natural" method, which assumes $a(\sigma)=1$.
+	where $a$ and $b$ are random numbers. The inaccurate approximation of the Radon transform in this case is presented by $g(s)=Rf(s)+\delta \cdot e(s)/\|e\|_{L_2(Z)}$, where $\delta=\mbox{noise level}*\|Rf\|_{L_\infty}$. We apply the optimal method ($\epsilon(\sigma) = 1$) to recover function $f$ for noise level of $0.1$ and compare it to the recovery by the "natural" method, which assumes $a(\sigma)=1$ and actually presents the standard filtered backprojection algorithm (FBP).
 	
-	\begin{figure}[H]
-		\subfloat[Contour plot of Gaussian function]{\includegraphics[width = .5\linewidth]{Gaussian.png}}
-		\subfloat[Slice of the Gaussian function and its recovery.]{\includegraphics[width = .5\linewidth]{Slice.png}}
-		\caption{Original image and recovery results by the "natural" and optimal methods.}
-		\label{1}
-	\end{figure}
+   \begin{figure}[H]    
+        \begin{minipage}[t]{0.31\textwidth}
+            \includegraphics[width=\linewidth]{Gaussian.png}
+        \end{minipage}
+        \hspace{\fill}
+        \begin{minipage}[t]{0.3\textwidth}
+            \includegraphics[width=\linewidth]{ReconOpt.png}
+        \end{minipage}
+        \hspace{\fill}
+        \begin{minipage}[t]{0.3\textwidth}
+            \includegraphics[width=\linewidth]{ReconNat.png}
+        \end{minipage}
+        \caption{Contour plot of the original image (left), its reconstruction by the optimal method (middle) and "natural" method (right).}
+        \label{Original}
+    \end {figure}    
+    
+%    \begin{figure}[h]
+%		\centering
+%		\includegraphics[scale=0.2]{Slice.png}
+%		\caption{The slice of the original Gaussian and its reconstructions by the optimal and "natural" methods.}
+%		\label{Slice}
+%	\end{figure}
 	
-	\begin{figure}[h]
-		{\includegraphics[width = 1\linewidth]{Recon.png}}
-		\caption{Contour plots of recovery results by the "natural" (left) and optimal (right) methods.}
-		\label{2}
-	\end{figure}
-	The results of the recovery are presented in figures \ref{1} and \ref{2}. Images show, that the optimal method provides a more accurate result with smaller error than the "natural" method.
+	The results of the recovery are presented in figures \ref{Original} and \ref{Slice}. Images show, that the optimal method provides a more accurate result with smaller error than the "natural" method.
+	For the next example we use standard Shepp-Logan phantom smoothed with Gaussian kernel, as presented on figure \ref{Phantom}. As previously we approximate the Radon transform with $g(\theta,s) = Rf(\theta,s)+\delta\cdot e(\theta,s)/\|e\|_{L_2(Z)}$, where $e(\theta,s)$ is Gaussian distributed noise with zero mean and standard deviation 1 and $\delta=\mbox{noise level}*\|Rf\|_{L_\infty(Z)}$. We apply the optimal method ($\epsilon(\sigma) = 1$) on noise level of $0.05$ and compare it to the recovery by standard FBP algorithm (Ram-Lack filter) and FBP with Hamming filter. Original image and its reconstructions are presented on figure \ref{Phantom}, figure \ref{Slice} shows the slice of the original and reconstructed images and figure \ref{Error} illustrates the error on the corresponding slice.
 	
+	 \begin{figure}[H]    
+        \begin{minipage}[t]{0.24\textwidth}
+            \includegraphics[width=\linewidth]{Phantom.png}
+        \end{minipage}
+        \begin{minipage}[t]{0.24\textwidth}
+            \includegraphics[width=\linewidth]{Optimal.png}
+        \end{minipage}
+        \begin{minipage}[t]{0.24\textwidth}
+            \includegraphics[width=\linewidth]{FBP.png}
+        \end{minipage}
+        \begin{minipage}[t]{0.24\textwidth}
+            \includegraphics[width=\linewidth]{Hamming.png}
+        \end{minipage}
+        \caption{From left to right: original phantom, reconstruction by the optimal method, reconstruction by FBP (Ram-Lak filter), reconstruction by FBP with Hamming filter.}
+        \label{Phantom}
+    \end {figure}    
+    
+    \begin{figure}[H]    
+        \begin{minipage}[t]{0.5\textwidth}
+            \includegraphics[width=\linewidth]{SlicePh.png}
+        \end{minipage}
+        \hspace{\fill}
+        \begin{minipage}[t]{0.5\textwidth}
+            \includegraphics[width=\linewidth]{SliceHam.png}
+        \end{minipage}
+        \caption{The slice of the original function, its reconstruction by FBP (Ram-Lak), FBP with Hamming filter and the optimal method.}
+        \label{Slice}
+    \end {figure}    
+    
+    \begin{figure}[H]    
+        \begin{minipage}[t]{0.5\textwidth}
+            \includegraphics[width=\linewidth]{Error.png}
+        \end{minipage}
+        \hspace{\fill}
+        \begin{minipage}[t]{0.5\textwidth}
+            \includegraphics[width=\linewidth]{ErrorHam.png}
+        \end{minipage}
+        \caption{The error of the reconstruction (on the same slice as on figure \ref{Slice}) by FBP (Ram-Lak), FBP with Hamming filter and the optimal method.}
+        \label{Error}
+    \end {figure}    
 	
 	\section*{References}
 	

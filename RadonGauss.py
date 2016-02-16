@@ -170,10 +170,10 @@ image = Z
 image[X**2+Y**2 > 4] = 0
 
 #plot image
-#fig = plt.figure()
+fig = plt.figure()
 #fig.suptitle("Original image")
-#plt.contourf(X,Y,image)
-#plt.show()  
+plt.contourf(X,Y,image)
+plt.show()  
 
 #make sinogram
 theta = np.linspace(0., 180., max(image.shape), endpoint=False)

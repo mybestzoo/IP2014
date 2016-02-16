@@ -157,10 +157,6 @@ image = imread(data_dir + "/phantom.png", as_grey=True)
 # smooth image with Gaussian filter
 image = scipy.ndimage.filters.gaussian_filter(image,3)
 
-fig = plt.figure()
-plt.imshow(image, cmap=plt.cm.Greys_r)
-plt.show()
-
 #fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4.5))
 #ax1.set_title("Original")
 #ax1.imshow(image, cmap=plt.cm.Greys_r)
@@ -191,66 +187,63 @@ sinogram = radon(image, theta=theta, circle=True)
 #sinoErr = a*np.sin(V)+b*np.cos(V) / ErNorm
 
 #add noise
-NoiseLvl =  0.01  
+NoiseLvl =  0.07  
 delta = NoiseLvl*np.max(sinogram)
 std = delta/np.sqrt(4*np.pi)
 sinogram = sinogram + std*randn(400,400)
 
 #reconstruct
-reconstruction = iradonT(sinogram, theta=theta, filter = 'hann', circle = True)
+reconstruction = iradonT(sinogram, theta=theta, filter = 'hamming', circle = True)
 reconstructionT = iradonT(sinogram, theta=theta, filter = 'tigran',circle = True)
 
-error = np.abs(reconstruction - image)
+error = reconstruction - image
 #print('Natural reconstruction error: %.3g' % np.sqrt(np.mean(error**2)))
 print('Natural reconstruction error: %.3g' % np.linalg.norm(error))
-errorT = np.abs(reconstructionT - image)
+errorT = reconstructionT - image
 #print('Optimal reconstruction error: %.3g' % np.sqrt(np.mean(errorT**2)))
 print('Optimal reconstruction error: %.3g' % np.linalg.norm(errorT))
 
-imkwargs = dict(vmin=-0.2, vmax=0.2)
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4.5),
-                               sharex=True, sharey=True,
-                               subplot_kw={'adjustable': 'box-forced'})
-ax1.set_title("Natural filter" )
-ax1.imshow(reconstruction, cmap=plt.cm.Greys_r)
-ax2.set_title("Optimal filter")
-ax2.imshow(reconstructionT, cmap=plt.cm.Greys_r)
-plt.show()
-
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4.5),
-                              sharex=True, sharey=True,
-                             subplot_kw={'adjustable': 'box-forced'})
-ax1.set_title("Error of Natural filter")
-ax1.imshow(error, cmap=plt.cm.Greys_r)
-ax2.set_title("Error of Optimal filter")
-ax2.imshow(errorT, cmap=plt.cm.Greys_r)
-plt.show()
-
 x = np.arange(0, 400, 1)
 y = np.arange(0, 400, 1)
-X, Y = np.meshgrid(x, y)
+
+#plot image
+#fig = plt.figure()
+#plt.imshow(image, cmap=plt.cm.Greys_r)
+#plt.show()
 
 #plot reconstructed images
-fig, (ax1, ax2) = plt.subplots(1, 2)
-ax1.set_title("Reconstruction by the 'natural' method")
-ax1.contour(X,Y,reconstruction)
-ax2.set_title("Reconstruction by the optimal method")
-ax2.contour(X,Y,reconstructionT)
+#fig, (ax1, ax2) = plt.subplots(1, 2)
+#ax1.set_title("FBP")
+#ax1.contour(X,Y,reconstruction)
+#ax2.set_title("Optimal method")
+#ax2.contour(X,Y,reconstructionT)
+#plt.show()
+
+fig = plt.figure()
+plt.imshow(reconstruction, cmap=plt.cm.Greys_r)
+plt.show()
+
+fig = plt.figure()
+plt.imshow(reconstructionT, cmap=plt.cm.Greys_r)
 plt.show()
 
 #plot slices
 fig = plt.figure()
 ax1 = fig.add_subplot(111)
-ax1.plot(x,image[:,200], 'r',label='Gaussian')
-ax1.plot(x,reconstruction[:,200], 'g',label='"Natural" method')
+ax1.plot(x,image[:,200], 'r',label='Phantom ')
+ax1.plot(x,reconstruction[:,200], 'g',label='FBP + Hamming filter')
 ax1.plot(x,reconstructionT[:,200], 'b',label='Optimal method')
 plt.legend(loc='upper left');
+axes = plt.gca()
+axes.set_ylim([-0.2,1])
 plt.show()
 
 #plot errors
 fig = plt.figure()
 ax1 = fig.add_subplot(111)
-ax1.plot(x,error[:,200], 'g',label='"Natural" method')
+ax1.plot(x,error[:,200], 'g',label='FBP + Hamming filter')
 ax1.plot(x,errorT[:,200], 'b',label='Optimal method')
 plt.legend(loc='upper left');
+axes = plt.gca()
+axes.set_ylim([-0.2,0.25])
 plt.show()

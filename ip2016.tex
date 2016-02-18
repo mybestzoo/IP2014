@@ -37,9 +37,9 @@
 	\submitto{Inverse Problems}
 	\maketitle
 	
-	In general, a problem of the optimal recovery, studied in papers \cite{SM,MR,MR1}, is to recover a value of a linear operator on a subset (class) in a linear space from a value of another linear operator (called information), measured with an error in a given metric. In most papers (starting from \cite{O} and recent \cite{OS,MO3}) an information is considered to be a linear functional or an operator that maps a function to its values on a set of points, its Fourier coefficients or Fourier transform. In the present paper we consider the k-plane transform -- an operator, that maps a function on $\mathbb R^d$ to the set of its integrals over all k-planes. This operator is widely used in the computerized tomography theory, which deals with the numerical reconstruction of functions from their linear integrals. Special cases are the Radon transform ($k=d-1$) and the X-ray transform ($k=1$). For the particular classes of functions there exist different inversion formulas that allow to produce an exact reconstruction (see \cite{Na}). We consider the case when the k-plane transform is measured with an error $\delta>0$ in the mean square metric. In the optimal recovery theory operators of this kind previously appeared in \cite{LS}, where for a function on the unit disk the information is the Radon transform measured in a finite number of directions and paper \cite{D} considering the radial integration operator on the class of analytic functions. In paper \cite{B} we consider the Hardy space $h_2$ of harmonic functions in a unit ball in $\mathbb R^d$, while the information is the radial integration operator, measured with an error. Paper \cite{B1} deals with the same class of functions, but under the action of the Radon transform. The solutions in these two problems arise from the structure of the Hardy space and decomposition of functions into special series by spherical harmonics. Current paper deals with a different class of functions, which is free from the conditions of the Hardy space, that are not typical to computerized tomography problems. We also consider the k-plane transform that include the Radon transform as a particular case $k=d-1$. Though the results in these papers are independent, from a certain point of view we consider a more "natural" class of functions and a more general information operator than in previous papers. Additionally we exploit the connection between the optimal recovery problem and the inequality for operators that arises from its solution to obtain a new inequality for the $k-plane$ transform.
+	In general, a problem of the optimal recovery, studied in papers \cite{SM,MR,MR1}, is to recover a value of a linear operator on a subset (class) in a linear space from a value of another linear operator (called information), measured with an error in a given metric. In most papers (starting from \cite{O} and recent \cite{OS,MO3}) an information is considered to be a linear functional or an operator that maps a function to its values on a set of points, its Fourier coefficients or Fourier transform. In the present paper we consider the k-plane transform -- an operator, that maps a function on $\mathbb R^d$ to the set of its integrals over all k-planes. This operator is widely used in the computerized tomography theory, which deals with the numerical reconstruction of functions from their linear integrals. Special cases are the Radon transform ($k=d-1$) and the X-ray transform ($k=1$). For the particular classes of functions there exist different inversion formulas that allow to produce an exact reconstruction (see \cite{Na}). We consider the case when the k-plane transform is measured with an error $\delta>0$ in the mean square metric. In the optimal recovery theory operators of this kind previously appeared in \cite{LS}, where for a function on the unit disk the information is the Radon transform measured in a finite number of directions and paper \cite{D} considering the radial integration operator on the class of analytic functions. In paper \cite{B} we consider the Hardy space $h_2$ of harmonic functions in a unit ball in $\mathbb R^d$, while the information is the radial integration operator, measured with an error. Paper \cite{B1} deals with the same class of functions, but under the action of the Radon transform. The solutions in these two problems arise from the structure of the Hardy space and decomposition of functions into special series by spherical harmonics. Current paper utilizes the optimal recovery theory approach and broadens the results to a more "natural" class of functions, which is free from the non typical to computerized tomography conditions of the Hardy space, and a more general information operator that includes the Radon transform as a particular case. Additionally we exploit the connection between the optimal recovery problem and the inequality for operators that arises from its solution to obtain a new inequality for the $k$-plane transform.
 	
-	Consider $G_{k,d}$ the Grassmanian manifold of (non-oriented) k-dimensional subspaces in $\mathbb R^d$. The group $O(d)$ acts transitively on it and for a $\pi\in G_{k,d}$ its stationary subgroup is $O(k)\times O(d-k)$, where $O(k)$ acts on the $k$-dimensional subspace $\pi$ and $O(d-k)$ -- on its orthogonal complement. Thus $G_{k,d}$ can be identified with the homogeneous space $O(d)/(O(k)\times O(d-k))$. By $d\pi$ we denote the $O(d)$-invariant measure on $G_{k,d}$, unique up to a constant.  According to \cite{Sa} the measure of the Grassmanian can be normalized by
+	Consider $G_{k,d}$ the Grassmann manifold of (non-oriented) k-dimensional subspaces in $\mathbb R^d$. The group $O(d)$ acts transitively on it and for a $\pi\in G_{k,d}$ its stationary subgroup is $O(k)\times O(d-k)$, where $O(k)$ acts on the $k$-dimensional subspace $\pi$ and $O(d-k)$ -- on its orthogonal complement. Thus $G_{k,d}$ can be identified with the homogeneous space $O(d)/(O(k)\times O(d-k))$. By $d\pi$ we denote the $O(d)$-invariant measure on $G_{k,d}$, unique up to a constant.  According to \cite{Sa} the measure of the Grassmanian can be normalized by
 	\begin{eqnarray*}
 		|G_{k,d}|=\frac{|\mathbb S^{d-1}|\mathbb S^{d-2}|\dots|\mathbb S^{d-k}|}{2|\mathbb S^{k-1}||\mathbb S^{k-2}|\dots|\mathbb S^1|},\quad k\geqslant2,\\
 		|G_{1,d}|=|\mathbb S^{d-1}|/2,\\
@@ -49,16 +49,17 @@
 	$$
 	|\mathbb S^{d-1}|=\frac{2\pi^{d/2}}{\Gamma(d/2)}.
 	$$
-	From the general theory of Helgason \cite{H} we derive the following formula for the integrable functions on $\mathbb R^d$ (corollary 2.4 from \cite{K})
+	From the general theory of Helgason \cite{H} we derive the following formula for the integrable functions on $\mathbb R^d$ (corollary 2.4 from \cite{K}):
 	\begin{equation}
 	\label{integral}
 	\int_{\mathbb R^d}f(x)dx=\frac{1}{\gamma_{d-k,d}}\int_{G_{k,d}}\int_{\pi^\perp}|x''|^kf(x'')dx''d\pi,
 	\end{equation}
 	where
-	$$
+	$
 	\gamma_{k,d}=|G_{k-1,d-1}|.
-	$$
-	Given a presentation of a point $x\in\mathbb R^d$ in a form $x=x'+x''$, $x'\in\pi$, $x''\in\pi^\perp$, the k-plane transform is defined by the integral along the plane parallel to $\pi$ through the point $x''$
+	$
+	
+	Given representation of a point $x\in\mathbb R^d$ in a form $x=x'+x''$, $x'\in\pi$, $x''\in\pi^\perp$, the k-plane transform is defined by the integral along the plane parallel to $\pi$ through the point $x''$:
 	$$Pf(\pi,x'')=P_\pi f(x'')=\int_{\pi}f(x'+x'')dx',\quad x''\in\pi^\perp.$$
 	Its domain is the manifold of all $k$-planes in $\mathbb R^d$ 
 	$$\mathcal G_{k,d}=\{(\pi,x''):\pi\in G_{k,d}, x''\in\pi^\perp\}.$$
@@ -105,12 +106,12 @@
 		\|Pf-g\|_{L_2(\mathcal G_{k,d})}\leqslant \delta
 		\end{smallmatrix}} ||\Lambda^\beta f-m(g)||_{L_2(\mathbb R^d)}.
 	\] 
-	The least of the errors among all the methods is called the error of the optimal recovery
+	The least error among all the methods is called the error of the optimal recovery
 	\begin{equation}
 	\label{opter}
 	E(\delta)=\inf_{m:L_2(\mathcal G_{k,d})\rightarrow L_2(\mathbb R^d)}e(\delta,m).
 	\end{equation}
-	The method $m$ for which the error of the optimal recovery is attained is called optimal, i.e. $e(\delta,m)=E(\delta)$. Our goal is to present the explicit construction for the optimal methods and the error of the optimal recovery.
+	Method $m$ for which the error of the optimal recovery is attained, i.e. $e(\delta,m)=E(\delta)$, is called optimal. Our goal is to present the explicit construction for the optimal methods and the error of the optimal recovery.
 	
 	When applied to $g(\pi,x'')$ the Fourier transform and operator $\Lambda$ act on the second variable and we use notation $g_\pi(x'')=g(\pi,x'')$. Define functions $t(\sigma)$, $y(\sigma)$ and constants $\widehat\lambda_1$, $\widehat\lambda_2$ by formulas
 	\begin{equation}
@@ -130,7 +131,7 @@
 		\[
 		E(\delta)=\sqrt{\widehat\lambda_1+\widehat\lambda_2\delta^2}=((2\pi)^k\gamma_{d-k,d})^{\frac{\beta-\alpha}{2\alpha+k}}\delta^{\frac{2(\alpha-\beta)}{2\alpha+k}}
 		\]
-		and the following methods are optimal
+		and the following methods are optimal:
 		\begin{equation}
 		\label{method}
 		m_a(g)(x) = \frac{1}{(2\pi)^k\gamma_{d-k,d}}[P^\#\Lambda^ku](x),
@@ -145,7 +146,7 @@
 	\end{theorem}
 	
 	\begin{proof}
-		Consider the so-called dual problem to \eqref{opter}
+		Consider the so-called dual problem to \eqref{opter}:
 		\[
 		\|\Lambda^\beta f\|^2_{L_2(\mathbb R^d)}\to\sup,\quad \|
 		\Lambda^\alpha f\|^2_{L_2(\mathbb R^d)}\leqslant  1,\quad
@@ -204,21 +205,21 @@
 		\int_{\mathbb R^d}|\xi|^{2\beta}d\mu\to \sup,\quad
 		\int_{\mathbb R^d}|\xi|^{2\alpha}d\mu\leqslant  1,\quad\int_{\mathbb R^d}\frac{(2\pi)^{k}\gamma_{d-k,d}}{|\xi|^k}d\mu\leqslant \delta^2.
 		\end{equation}
-		Now we consider \eqref{mes} to be a new extremal problem, where $d\mu(\xi)$ is an arbitrary measure. Obviously its solution ins't less than the solution of the original dual problem. To solve the dual problem we will present the solution of \eqref{mes} and the sequence of admissible functions, that bring the same value in the dual problem.
+		Now we consider \eqref{mes} to be a new extremal problem, where $d\mu(\xi)$ is an arbitrary measure. Obviously its solution isn't less than the solution of the original dual problem. To solve the dual problem we will present the solution of \eqref{mes} and the sequence of admissible functions, that bring the same value in the dual problem.
 		Consider the Lagrange function of \eqref{mes}:
 		\begin{multline*}
 		L(d\mu ,\lambda_1,\lambda_2)=-\lambda_1-\lambda_2\delta^2+\\
 		+(2\pi)^{k}\gamma_{d-k,d}\int_{\mathbb R^d}\frac{1}{|\xi|^k}\Bigl(\lambda_1\frac{|\xi|^{2\alpha+k}}{(2\pi)^{k}\gamma_{d-k,d}}+\lambda_2-\frac{|\xi|^{2\beta+k}}{(2\pi)^{k}\gamma_{d-k,d}}\Bigr)d\mu
 		\end{multline*}
-		or using notations \eqref{xy},
+		or, using notations \eqref{xy}:
 		$$
 		L(d\mu ,\lambda_1,\lambda_2)=-\lambda_1-\lambda_2\delta^2+(2\pi)^{k}\gamma_{d-k,d}\int_{\mathbb R^d}\frac{1}{|\xi|^k}\Bigl(\lambda_1t(|\xi|)+\lambda_2-y(|\xi|)\Bigr)d\mu.
 		$$
-		If there exist the Lagrange multipliers $\widehat\lambda_1$,$\widehat\lambda_2\geqslant 0$ and a measure $d\mu^*$, admissible in \eqref{mes}, that minimizes the Lagrange function
+		If there exist the Lagrange multipliers $\widehat\lambda_1$,$\widehat\lambda_2\geqslant 0$ and measure $d\mu^*$, admissible in \eqref{mes}, that minimizes the Lagrange function, i.e.
 		$$\min_{
 			\begin{smallmatrix}
 			d\mu\geqslant 0
-			\end{smallmatrix}} L(d\mu,\widehat{\lambda}_1,\widehat{\lambda}_2)=L(d\mu^*,\widehat{\lambda}_1,\widehat{\lambda}_2)$$ 
+			\end{smallmatrix}} L(d\mu,\widehat{\lambda}_1,\widehat{\lambda}_2)=L(d\mu^*,\widehat{\lambda}_1,\widehat{\lambda}_2),$$ 
 		and satisfies
 		$$
 		\widehat\lambda_1\left(\int_{\mathbb R^d}|\xi|^{2\alpha}d\mu^*-1\right)+\widehat\lambda_2\left((2\pi)^{k}\gamma_{d-k,d}\int_{\mathbb
@@ -270,7 +271,7 @@
 		\label{ineq}
 		\|P^\#\Lambda^kg\|_{L_2(\mathbb R^d)}\leqslant\sqrt{(2\pi)^k\gamma_{d-k,d}}\|\Lambda^{k/2}g\|_{L_2(\mathbb \mathcal G_{k,d})}.
 		\end{equation}
-		By taking the inverse Fourier transform from both parts in projection-slice theorem \ref{projection} we gain the following representation for function $f$
+		By taking the inverse Fourier transform from both parts in the projection-slice theorem \ref{projection} we gain the following representation for function $f$
 		\begin{multline*}
 		f(x) = (2\pi)^{-d/2}\int_{G_{k,d}}\int_{\pi^\perp}\frac{|\xi''|^k}{\gamma_{d-k,d}}(2\pi)^{-k/2}\widehat{P_\pi f}(\xi'')e^{<x,\xi''>}d\xi''d\pi = \\
 		= \frac{(2\pi)^{(-d-k)/2}}{\gamma_{d-k,d}}\int_{G_{k,d}}\int_{\pi^\perp}|\xi''|^k\widehat{P_\pi f}(\xi'')e^{<Proj_{\pi^\perp}x,\xi''>}d\xi''d\pi = \\
@@ -303,7 +304,7 @@
 		\[
 		A(\xi'')=\frac{|\xi''|^{k+2\beta}}{\gamma_{d-k,d}}\left((2\pi)^{-k}\frac{a^2(\xi'')}{\widehat\lambda_2}+\frac{\gamma_{d-k,d}}{|\xi''|^{k+2\alpha}}\frac{(a(\xi'')-1)^2}{\widehat\lambda_1}\right).
 		\]
-		Here $A(\xi'')\leqslant 1$ due to \eqref{a} and other terms could be estimated by the constraints of the class $W$ to achieve $\left\|\Lambda^\beta f-m_a(g)\right\|^2_{L_2(\mathbb R^d)}\leqslant
+		Here $A(\xi'')\leqslant 1$ due to \eqref{a} and other terms are estimated by the constraints of the class $W$ to achieve $\left\|\Lambda^\beta f-m_a(g)\right\|^2_{L_2(\mathbb R^d)}\leqslant
 		\widehat\lambda_1+\widehat\lambda_2\delta^2,$ which ends the proof.
 		
 	\end{proof}
@@ -313,7 +314,7 @@
 	%CONS1
 	\begin{corollary}
 		\label{cor}
-		In the conditions of the theorem \ref{theorem} the following methods are optimal 
+		In the conditions of theorem \ref{theorem} the following methods are optimal 
 		$$m_a(g)(x) = \frac{1}{(2\pi)^k\gamma_{d-k,d}}[P^\#\Lambda^ku](x),$$
 		where	
 		$$\widehat{u}(\xi'')=|\xi''|^\beta a(\xi'')\widehat{g_\pi }(\xi''),\quad \xi''\in\pi^\perp,$$
@@ -370,18 +371,18 @@
 		\]
 	\end{proof}
 	
-	As we already mentioned some particular cases of the presented problem bring the most interest. In computerized tomography theory the general problem is to recover a function itself from different sort of tomographic data, which corresponds to $\beta=0$ in our notations. A special case of $\beta=1$ is studied in the local tomography theory, where one of the methods is the so-called Lambda tomography. Instead of function $f$ itself it deals with the related function $Lf = \Lambda f+\mu\Lambda^{-1}f$. This has the advantege that the reconstruction is strictly local in the sense that computation of $Lf(x)$ requires only integrals over lines passing arbitrarily close to $x$. The details can be found in paper \cite{FKNRS}.
-	The results for the X-Ray transform are totally correspond to the theorem \ref{theorem}, corollaries \ref{cor} and \ref{cor2} by putting $\beta=0$ and $k=1$. The case of the Radon transform needs an additional remark as its usual definition differs from the one that we use here. Let $Z=\mathbb R\times\mathbb S^{d-1}$, $(s,\theta)\in Z$ and $x\in\mathbb R^d$ then the Radon transform is defined by the formula 
+	As we already mentioned some particular cases of the presented problem bring the most interest. In computerized tomography theory the general problem is to recover a function itself from different sort of tomographic data, which corresponds to $\beta=0$ in our notations. A special case of $\beta=1$ is studied in the local tomography theory, where one of the methods is the so-called Lambda tomography. Instead of function $f$ itself it deals with the related function $Lf = \Lambda f+\mu\Lambda^{-1}f$. This has the advantage that the reconstruction is strictly local in the sense that computation of $Lf(x)$ requires only integrals over lines passing arbitrarily close to $x$. The details can be found in paper \cite{FKNRS}.
+	The results for the X-Ray transform totally correspond to the theorem \ref{theorem}, corollaries \ref{cor} and \ref{cor2} by putting $\beta=0$ and $k=1$. The case of the Radon transform needs an additional remark as its usual definition differs from the one we use here. Let $S\in\mathbb R$, $\theta\in\mathbb S^{d-1}$ and $x\in\mathbb R^d$ then the Radon transform is defined on $Z=\mathbb R\times\mathbb S^{d-1}$ by the formula 
 	$$Rf(\theta,s)=\int_{x\theta=s}f(x)dx.$$
-	Clearly the function $Rf(\theta,s)$ has the same value as $Pf(\pi,x'')$, where $\pi=\{x\in\mathbb R^d | x\theta=0\}$, $x''=s\theta$ as well as
+	Clearly function $Rf(\theta,s)$ has the same value as $Pf(\pi,x'')$, where $\pi=\{x\in\mathbb R^d | x\theta=0\}$, $x''=s\theta$ as well as
 	\begin{equation}
 	\label{norms}
 	\|Rf\|_{L_2(Z)}=\sqrt{2}\|Pf\|_{L_2(\mathcal G_{k,d})},\quad k=d-1.
 	\end{equation}
 	Therefore class $W$ for $\beta=0$ can be equivalently presented as 
 	$$ W=\{f\in L_2(\mathbb R^d) :
-	\|\Lambda^\alpha f\|_{L_2(\mathbb R^d)}\leqslant  1;\quad Rf\in L_2(Z) \},\quad\alpha>0$$
-	and the error of the optimal recovery is
+	\|\Lambda^\alpha f\|_{L_2(\mathbb R^d)}\leqslant  1;\quad Rf\in L_2(Z) \},\quad\alpha>0,$$
+	and the error of the optimal recovery has the form
 	$$
 	E(\delta)=\inf_{m:L_2(Z)\rightarrow L_2(\mathbb R^d)}\sup_{
 		\begin{smallmatrix}
@@ -389,16 +390,15 @@
 		\|Rf-g\|_{L_2(Z)}\leqslant \delta
 		\end{smallmatrix}} ||f-m(g)||_{L_2(\mathbb R^d)}.
 	$$
-	From \eqref{norms} it follows that the solution of this problem is equivalent to the solution in theorem \ref{theorem} where $\delta$ is substituted by $\delta/\sqrt{2}$ in the expressions for $\lambda_1$, $\lambda_2$ and $E(\delta)$
+	From \eqref{norms} it follows that the solution of this problem is equivalent to the solution in theorem \ref{theorem} where $\delta$ is substituted by $\delta/\sqrt{2}$ in the expressions for $\lambda_1$, $\lambda_2$ and $E(\delta)$:
 	$$
 	\widehat\lambda_1=(2\pi)^{\frac{2\alpha(1-d)}{2\alpha+d-1}}\frac{d-1}{2\alpha+d-1}\left(\frac{\delta}{\sqrt{2}}\right)^\frac{4\alpha}{2\alpha+d-1},\quad \widehat\lambda_2=(2\pi)^{\frac{2\alpha(1-d)}{2\alpha+d-1}}\frac{2\alpha}{2\alpha+d-1}\left(\frac{\delta}{\sqrt{2}}\right)^\frac{2(1-d)}{2\alpha+d-1}, 
 	$$
 	$$
 	E(\delta)=\sqrt{\widehat\lambda_1+\widehat\lambda_2\frac{\delta^2}{2}}=(2\pi)^{\frac{\alpha(1-d)}{2\alpha+d-1}}\left(\frac{\delta}{\sqrt{2}}\right)^{\frac{2\alpha}{2\alpha+d-1}}.
 	$$
-	The optimal methods will take the form 
-	$$
-	\widehat{m_a(g)}(\sigma\theta)=(2\pi)^{(1-d)/2}a(\sigma)\widehat{g_\theta }(\sigma),\quad \sigma\in[0,\infty),\quad \theta\in\mathbb S^{d-1},
+	To present the optimal methods denote by $g^*(\pi,x'')$ the function on $\mathcal G_{d-1,d}$ that corresponds to $g(\theta,s)$ and notice that $\widehat{g^*_\pi}(\xi'')=\widehat{g_\theta}(\sigma)$, where $\xi''=\sigma\theta$. Then just substitute $g^*(\pi,x'')$ into \eqref{method} to obtain
+	$$m_a(g)(x) = (2\pi)^{1-d}[P^\#\Lambda^{d-1}u](x),\quad \widehat{u}(\sigma\theta)= a(\sigma)\widehat{g_\theta}(\sigma),\quad \sigma\in[0,\infty),\quad \theta\in\mathbb S^{d-1},
 	$$
 	where $g_{\theta}(s)=g(\theta,s)$ and function $a$ can be presented according to the corollary \ref{cor} as
 	$$
@@ -410,8 +410,7 @@
 	\end{cases}
 	$$
 	$\varepsilon$ is an arbitrary function satisfying $\|\varepsilon\|_{L_\infty(\mathbb R)}\leqslant 1$.
-	
-	Finally, the Radon transform satisfies the inequality
+	Finally, following corollary \ref{cor2} the Radon transform satisfies the inequality
 	$$
 	\|f\|_{L_2(\mathbb R^d)}\leqslant
 	(2\pi)^{\frac{\alpha(1-d)}{2\alpha+d-1}}2^{\frac{-\alpha}{2\alpha+d-1}}\|Rf\|_{L_2(Z)}^{\frac{2\alpha}{2\alpha+d-1}}\|\Lambda^\alpha f\|_{L_2(\mathbb
@@ -425,7 +424,7 @@
 	0 & s\notin[-1,1]
 	\end{cases}
 	$$
-	where $a$ and $b$ are random numbers. The inaccurate approximation of the Radon transform in this case is presented by $g(s)=Rf(s)+\delta \cdot e(s)/\|e\|_{L_2(Z)}$, where $\delta=\mbox{noise level}*\|Rf\|_{L_\infty}$. We apply the optimal method ($\epsilon(\sigma) = 1$) to recover function $f$ for noise level of $0.1$ and compare it to the recovery by the "natural" method, which assumes $a(\sigma)=1$ and actually presents the standard filtered backprojection algorithm (FBP).
+	where $a$ and $b$ are random numbers. The inaccurate approximation of the Radon transform in this case is presented by $g(s)=Rf(s)+\delta \cdot e(s)/\|e\|_{L_2(Z)}$, where $\delta=\mbox{noise level}*\|Rf\|_{L_\infty}$. We apply the optimal method (we choose $\epsilon(\sigma) = 1$) to recover function $f$ for noise level of $0.1$ and compare it to the recovery by the "natural" method, which assumes $a(\sigma)=1$ and actually presents the standard filtered backprojection algorithm (FBP).
 	
    \begin{figure}[H]    
         \begin{minipage}[t]{0.31\textwidth}
@@ -439,16 +438,9 @@
         \begin{minipage}[t]{0.3\textwidth}
             \includegraphics[width=\linewidth]{ReconNat.png}
         \end{minipage}
-        \caption{Contour plot of the original image (left), its reconstruction by the optimal method (middle) and "natural" method (right).}
+        \caption{Contour plot of the original image (left), its reconstruction from the inaccurate Radon transform by the optimal method (middle) and "natural" method (right).}
         \label{Original}
     \end {figure}    
-    
-%    \begin{figure}[h]
-%		\centering
-%		\includegraphics[scale=0.2]{Slice.png}
-%		\caption{The slice of the original Gaussian and its reconstructions by the optimal and "natural" methods.}
-%		\label{Slice}
-%	\end{figure}
 	
 	The results of the recovery are presented in figures \ref{Original} and \ref{Slice}. Images show, that the optimal method provides a more accurate result with smaller error than the "natural" method.
 	For the next example we use standard Shepp-Logan phantom smoothed with Gaussian kernel, as presented on figure \ref{Phantom}. As previously we approximate the Radon transform with $g(\theta,s) = Rf(\theta,s)+\delta\cdot e(\theta,s)/\|e\|_{L_2(Z)}$, where $e(\theta,s)$ is Gaussian distributed noise with zero mean and standard deviation 1 and $\delta=\mbox{noise level}*\|Rf\|_{L_\infty(Z)}$. We apply the optimal method ($\epsilon(\sigma) = 1$) on noise level of $0.05$ and compare it to the recovery by standard FBP algorithm (Ram-Lack filter) and FBP with Hamming filter. Original image and its reconstructions are presented on figure \ref{Phantom}, figure \ref{Slice} shows the slice of the original and reconstructed images and figure \ref{Error} illustrates the error on the corresponding slice.
